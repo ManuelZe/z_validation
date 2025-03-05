@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<tree>
+    <field name="order"/>
+    <field name="numero_test"/>
+    <field name="actes_examen"/>
+    <field name="date_result"/>
+    <field name="duree"/>
+    <field name="patient"/>
+    <field name="correct"/>
+    <field name="observation" expand="1"/>
+</tree>

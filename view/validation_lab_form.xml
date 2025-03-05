@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form>
+    <label name="order"/>
+    <field name="order"/>
+    <label name="numero_test"/>
+    <field name="numero_test"/>
+    <label name="actes_examen"/>
+    <field name="actes_examen"/>
+    <label name="date_result"/>
+    <field name="date_result"/>
+    <label name="duree"/>
+    <field name="duree"/>
+    <label name="patient"/>
+    <field name="patient"/>
+    <label name="correct"/>
+    <field name="correct"/>
+    <label name="observation"/>
+    <field name="observation"/>
+</form>

@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<tryton>
+    <data>
+        <menuitem
+            name="Validation"
+            sequence="30"
+            id="menu_validation"/>
+
+        <record model="ir.ui.view" id="validation_examen_lab_form">
+            <field name="model">all_syntheses</field>
+            <field name="type">form</field>
+            <field name="name">validation_lab_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="validation_examen_lab_tree">
+            <field name="model">all_syntheses</field>
+            <field name="type">tree</field>
+            <field name="name">validation_lab_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="validation_examen_lab_action">
+            <field name="name">Laboratoire</field>
+            <field name="res_model">all_syntheses</field>
+            <field name="domain" eval="[('service_examen', '=', 'lab')]" pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_examen_lab_action_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="validation_examen_lab_tree"/>
+            <field name="act_window" ref="validation_examen_lab_action"/>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_examen_lab_action_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="validation_examen_lab_form"/>
+            <field name="act_window" ref="validation_examen_lab_action"/>
+        </record>
+
+        <menuitem
+            name="Examens"
+            parent="menu_validation"
+            sequence="10"
+            id="menu_Examen"
+            icon="tryton-settings"/>
+
+        <menuitem
+            parent="menu_Examen"
+            action="validation_examen_lab_action"
+            sequence="20"
+            id="menu_validation_examen_lab"/>
+        
+
+        <record model="ir.ui.view" id="validation_examen_exp_form">
+            <field name="model">all_syntheses</field>
+            <field name="type">form</field>
+            <field name="name">validation_exp_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="validation_examen_exp_tree">
+            <field name="model">all_syntheses</field>
+            <field name="type">tree</field>
+            <field name="name">validation_exp_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="validation_examen_exp_action">
+            <field name="name">Exploration</field>
+            <field name="res_model">all_syntheses</field>
+            <field name="domain" eval="[('service_examen', '=', 'exp')]" pyson="1"/>
+            
+        </record>
+        <record model="ir.action.act_window.view" id="validation_examen_exp_action_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="validation_examen_exp_tree"/>
+            <field name="act_window" ref="validation_examen_exp_action"/>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_examen_exp_action_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="validation_examen_exp_form"/>
+            <field name="act_window" ref="validation_examen_exp_action"/>
+        </record>
+
+        <menuitem
+            parent="menu_Examen"
+            action="validation_examen_exp_action"
+            sequence="20"
+            id="menu_validation_examen_exp"/>
+
+
+        <record model="ir.ui.view" id="validation_examen_img_form">
+            <field name="model">all_syntheses</field>
+            <field name="type">form</field>
+            <field name="name">validation_img_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="validation_examen_img_tree">
+            <field name="model">all_syntheses</field>
+            <field name="type">tree</field>
+            <field name="name">validation_img_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="validation_examen_img_action">
+            <field name="name">Exploration</field>
+            <field name="res_model">all_syntheses</field>
+            <field name="domain" eval="[('service_examen', '=', 'img')]" pyson="1"/>
+            
+        </record>
+        <record model="ir.action.act_window.view" id="validation_examen_img_action_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="validation_examen_img_tree"/>
+            <field name="act_window" ref="validation_examen_img_action"/>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_examen_img_action_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="validation_examen_img_form"/>
+            <field name="act_window" ref="validation_examen_img_action"/>
+        </record>
+
+        <menuitem
+            parent="menu_Examen"
+            action="validation_examen_img_action"
+            sequence="20"
+            id="menu_validation_examen_img"/>
+
+    </data>
+</tryton>

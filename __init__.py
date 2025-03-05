@@ -2,12 +2,14 @@
 # this repository contains the full copyright notices and license terms.
 
 from trytond.pool import Pool
+from . import validation
 
 __all__ = ['register']
 
 
 def register():
     Pool.register(
+        validation.Syntheses_Resultats_Examen,
         module='z_validation', type_='model')
     Pool.register(
         module='z_validation', type_='wizard')
