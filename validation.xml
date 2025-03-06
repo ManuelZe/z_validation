@@ -23,7 +23,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.act_window" id="validation_examen_lab_action">
             <field name="name">Laboratoire</field>
             <field name="res_model">all_syntheses</field>
-            <field name="domain" eval="[('service_examen', 'in', ['lab', ''])]" pyson="1"/>
+            <field name="domain" eval="['OR', ('service_examen', '=', 'lab'), ('service_examen', '=', None)]" pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="validation_examen_lab_action_tree_view">
             <field name="sequence" eval="10"/>
@@ -65,7 +65,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.act_window" id="validation_examen_exp_action">
             <field name="name">Exploration</field>
             <field name="res_model">all_syntheses</field>
-            <field name="domain" eval="[('service_examen', 'in', ['exp', ''])]" pyson="1"/>
+            <field name="domain" eval="['OR', ('service_examen', '=', 'exp'), ('service_examen', '=', None)]" pyson="1"/>
             
         </record>
         <record model="ir.action.act_window.view" id="validation_examen_exp_action_tree_view">
@@ -99,10 +99,9 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <record model="ir.action.act_window" id="validation_examen_img_action">
-            <field name="name">Exploration</field>
+            <field name="name">Imagerie</field>
             <field name="res_model">all_syntheses</field>
-            <field name="domain" eval="[('service_examen', 'in', ['img', ''])]" pyson="1"/>
-            
+            <field name="domain" eval="['OR', ('service_examen', '=', 'img'), ('service_examen', '=', None)]" pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="validation_examen_img_action_tree_view">
             <field name="sequence" eval="10"/>
