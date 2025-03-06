@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <form>
-    <separator string="""Do you want to generate the Results? 
+    <separator string="Do you want to generate the Results? 
                          This Action Will erase existing data.
-                         """
+                        "
         colspan="4" id="test_ask_erase_data"/>
     <newline/>
     <separator string="Generate Validation EXamen" colspan="6"
