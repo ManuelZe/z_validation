@@ -23,7 +23,6 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.act_window" id="validation_examen_lab_action">
             <field name="name">Laboratoire</field>
             <field name="res_model">all_syntheses</field>
-            <field name="domain" eval="['OR', ('service_examen', '=', 'lab'), ('service_examen', '=', None)]" pyson="1"/>
         </record>
         <record model="ir.action.act_window.view" id="validation_examen_lab_action_tree_view">
             <field name="sequence" eval="10"/>
