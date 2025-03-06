@@ -19,8 +19,6 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
     service_examen = fields.Char('Service Examen', help="Le service en questions")
     correct = fields.Boolean("Correcte", help="Cocher si ceci est bien correct.")
 
-    def __str__(self):
-        return self.order
 
     def retrieve_information(cls, records, trigger):
 
@@ -88,8 +86,6 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
                 'patient' : patient,
                 'service_examen' : 'img'
             }])
-        if hasattr(Syntheses_Resultats_Examen, 'order'):
-            print("ceci a attribut order", cls.date_emm)
     
     def delete_information(cls, records, trigger):
 
