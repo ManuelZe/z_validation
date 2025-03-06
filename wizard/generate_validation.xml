@@ -5,7 +5,7 @@
         <record model="ir.ui.view" id="view_generate_results_validation_examen">
             <field name="model">results.examen.init</field>
             <field name="type">form</field>
-            <field name="name">results.examen.init</field>
+            <field name="name">ask_erase_data</field>
         </record>
 
         <record model="ir.action.wizard" id="act_generate_results_validation_examen">
