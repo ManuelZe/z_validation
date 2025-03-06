@@ -2,23 +2,13 @@ from trytond.model import Workflow, ModelView, ModelSQL, fields
 from trytond.pool import Pool
 from datetime import date, timedelta
 from trytond.transaction import Transaction
-from flask_tryton import Tryton
-
-tryton = Tryton()
 
 def retrive_information():
 
     today = date.today()
-    transaction = Transaction()
 
-    app.config['TRYTON_CONFIG'] = '/home/gnuhealth/gnuhealth/tryton/server/config/trytond.conf'
-    app.config['TRYTON_DATABASE'] = 'pdmd_sante'
-    app.config['TRYTON_USER'] = 0
-    app.config['CORS_HEADERS'] = 'Content-Type'
-
-    tryton.init_app(app)
-
-    with transaction.start(database_name='pdmd_sante', user=1):
+    transaction=Transaction()
+    with transaction.start(database_name='PDMD_SANTE', user=1):
         Syntheses = Pool().get("all_syntheses")
         LabResults = Pool().get("gnuhealth.lab")
         ExpResults = Pool().get("gnuhealth.exp")
