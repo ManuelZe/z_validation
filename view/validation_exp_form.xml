@@ -12,6 +12,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="date_result"/>
     <label name="duree"/>
     <field name="duree"/>
+    <label name="state"/>
+    <field name="state"/>
     <label name="patient"/>
     <field name="patient"/>
     <label name="correct"/>

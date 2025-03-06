@@ -4,8 +4,7 @@
     <field name="numero_test"/>
     <field name="service_examen"/>
     <field name="actes_examen"/>
-    <field name="date_result"/>
-    <field name="duree"/>
+    <field name="state"/>
     <field name="patient"/>
     <field name="correct"/>
     <field name="observation" expand="1"/>

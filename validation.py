@@ -6,7 +6,7 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
     'Synthèses des différents examens journalièrement'
     __name__ = 'all_syntheses'
 
-    order = fields.Numeric("Reste à Payer", readonly=True)
+    order = fields.Numeric("Ordre", readonly=True)
     numero_test = fields.Char("Numéro de test", readonly=True)
     actes_examen = fields.Char("Actes Ou Examens", readonly=True)
     date_emm = fields.DateTime("Date d'Emission", readonly=True)
@@ -14,6 +14,7 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
     date_result = fields.DateTime("Date de Résultat", readonly=True)
     duree = fields.DateTime("Durée", readonly=True)
     patient = fields.Char("Patient", readonly=True)
+    state = fields.Char("Etat", readonly=True)
     observation = fields.Text("Observation", help="Les différentes observations.")
     service_examen = fields.Char('Service Examen', help="Le service en questions")
     correct = fields.Boolean("Correcte", help="Cocher si ceci est bien correct.")
@@ -47,6 +48,7 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
                 'date_result' : LabResult.done_date,
                 'date_eng' : today,
                 'duree' : dur,
+                'state' : LabResult.state,
                 'patient' : patient,
                 'service_examen' : 'lab'
             }])
@@ -64,6 +66,7 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
                 'date_result' : ExpResult.done_date,
                 'date_eng' : today,
                 'duree' : dur,
+                'state' : ExpResult.state,
                 'patient' : patient,
                 'service_examen' : 'exp'
             }])
@@ -81,6 +84,7 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
                 'date_result' : ImgResult.done_date,
                 'date_eng' : today,
                 'duree' : dur,
+                'state' : ImgResult.state,
                 'patient' : patient,
                 'service_examen' : 'img'
             }])
