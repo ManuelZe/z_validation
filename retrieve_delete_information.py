@@ -8,7 +8,7 @@ def retrive_information():
     today = date.today()
 
     transaction=Transaction()
-    with transaction.start(database_name='PDMD_SANTE', user=1):
+    with transaction.start(database_name='pdmd_sante', user=1):
         Syntheses = Pool().get("all_syntheses")
         LabResults = Pool().get("gnuhealth.lab")
         ExpResults = Pool().get("gnuhealth.exp")
