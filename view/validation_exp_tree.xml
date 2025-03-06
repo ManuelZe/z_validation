@@ -2,6 +2,7 @@
 <tree>
     <field name="order"/>
     <field name="numero_test"/>
+    <field name="service_examen"/>
     <field name="actes_examen"/>
     <field name="date_result"/>
     <field name="duree"/>
