@@ -56,7 +56,7 @@ class GenerateResultsExamen(Wizard):
 
         order = [('date_analysis', 'ASC')]
         LabResults = LabResults.search([])
-        print(f"{LabResults[0].create_date} et {type(LabResults[0].date_analysis)} et la date {today} et son type {type(today)}")
+        print(f"{LabResults[0].create_date.date} et {type(LabResults[0].date_analysis)} et la date {today} et son type {type(today)}")
         LabResults = LabResults.search([('date_analysis', '=', today)], order)
         ExpResults = ExpResults.search([('date_analysis', '=', today)], order)
         ImgResults = ImgResults.search([('date', '=', today)], order)
