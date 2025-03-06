@@ -9,7 +9,7 @@
         </record>
 
         <record model="ir.action.wizard" id="act_generate_results_validation_examen">
-            <field name="name">Generate Results for this Slip</field>
+            <field name="name">Generate Examen Validation</field>
             <field name="wiz_name">results.examen.create</field>
             <field name="model">all_syntheses</field>
         </record>
