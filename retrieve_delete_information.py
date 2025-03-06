@@ -2,6 +2,8 @@ from trytond.model import Workflow, ModelView, ModelSQL, fields
 from trytond.pool import Pool
 from datetime import date, timedelta
 from trytond.transaction import Transaction
+from trytond.config import CONFIG
+CONFIG.update_etc('/chemin/vers/ton/trytond.conf') 
 
 def retrive_information():
 
