@@ -58,7 +58,7 @@ class GenerateResultsExamen(Wizard):
         start_datetime = datetime.combine(today, time.min)
         end_datetime = datetime.combine(today, time.max)
         LabResults = LabResults.search([('date_analysis', '>=', start_datetime),
-                                            ('date_analysis', '<=', end_datetime)], order)
+                                            ('date_analysis', '<=', end_datetime)])
         print(f"{LabResults[0].create_date.date()} et {type(LabResults[0].date_analysis)} et la date {today} et son type {type(today)}")
         # LabResults = LabResults.search([('date_analysis', '=', today)], order)
         ExpResults = ExpResults.search([('date_analysis', '=', today)], order)
