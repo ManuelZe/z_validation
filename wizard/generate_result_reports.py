@@ -1,16 +1,54 @@
-from trytond.model import Workflow, ModelView, ModelSQL, fields
-from trytond.pool import Pool
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    GNU Health: The Free Health and Hospital Information System
+#    Copyright (C) 2008-2022 Luis Falcon <lfalcon@gnusolidario.org>
+#    Copyright (C) 2011-2022 GNU Solidario <health@gnusolidario.org>
+#
+#
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
 from datetime import date, timedelta
+from trytond.model import ModelView
+from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.transaction import Transaction
-from trytond.config import config
-config.update_etc('/home/gnuhealth/gnuhealth/tryton/server/config/trytond.conf')
+from trytond.pool import Pool
 
-def retrive_information():
 
-    today = date.today()
+class GenerateResultsExamenInit(ModelView):
+    'Generate Data Exam - Validation'
+    __name__ = 'results.examen.init'
 
-    transaction=Transaction()
-    with transaction.start(database_name='pdmd_sante', user=1):
+
+class GenerateResultsExamen(Wizard):
+    'Generate Data Exam Validation All_syntheses'
+    __name__ = 'results.examen.create'
+
+    start = StateView('results.examen.init',
+        'z_validation.view_generate_results_validation_examen', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Generate Validation', 'generate_results_examen_validation', 'tryton-ok',
+                True),
+            ])
+    generate_results_examen_validation = StateTransition()
+
+    def transition_generate_results_examen_validation(self):
+
+        today = date.today()
+        pool = Pool()
         Syntheses = Pool().get("all_syntheses")
         LabResults = Pool().get("gnuhealth.lab")
         ExpResults = Pool().get("gnuhealth.exp")
@@ -83,8 +121,3 @@ def retrive_information():
 
         if Syntheses_Result:
             Syntheses.delete(Syntheses_Result)
-
-        Transaction().commit()
-
-if __name__ == "__main__":
-    retrive_information()
