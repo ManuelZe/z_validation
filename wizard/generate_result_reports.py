@@ -21,7 +21,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime, time
 from trytond.model import ModelView
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.transaction import Transaction
@@ -55,8 +55,11 @@ class GenerateResultsExamen(Wizard):
         ImgResults = Pool().get("gnuhealth.imaging.test.result")
 
         order = [('date_analysis', 'ASC')]
-        LabResults = LabResults.search([])
-        print(f"{LabResults[0].create_date.date} et {type(LabResults[0].date_analysis)} et la date {today} et son type {type(today)}")
+        start_datetime = datetime.combine(today, time.min)
+        end_datetime = datetime.combine(today, time.max)
+        LabResults = LabResults.search([('date_analysis', '>=', start_datetime),
+                                            ('date_analysis', '<=', end_datetime)])
+        print(f"{LabResults[0].create_date.date()} et {type(LabResults[0].date_analysis)} et la date {today} et son type {type(today)}")
         LabResults = LabResults.search([('date_analysis', '=', today)], order)
         ExpResults = ExpResults.search([('date_analysis', '=', today)], order)
         ImgResults = ImgResults.search([('date', '=', today)], order)
