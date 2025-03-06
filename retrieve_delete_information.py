@@ -3,7 +3,7 @@ from trytond.pool import Pool
 from datetime import date, timedelta
 from trytond.transaction import Transaction
 from trytond.config import config
-config.update_etc('/home/gnuhealth/gnuhealth/trytond/server/config/trytond.conf')
+config.update_etc('/home/gnuhealth/gnuhealth/tryton/server/config/trytond.conf')
 
 def retrive_information():
 
