@@ -55,9 +55,9 @@ class GenerateResultsExamen(Wizard):
         ImgResults = Pool().get("gnuhealth.imaging.test.result")
 
         order = [('date_analysis', 'ASC')]
-        LabResults = LabResults.search(['date_analysis', '=', today], order)
-        ExpResults = ExpResults.search(['date_analysis', '=', today], order)
-        ImgResults = ImgResults.search(['date', '=', today], order)
+        LabResults = LabResults.search([('date_analysis', '=', today)], order)
+        ExpResults = ExpResults.search([('date_analysis', '=', today)], order)
+        ImgResults = ImgResults.search([('date', '=', today)], order)
 
         for LabResult in LabResults :
             dur = 0
