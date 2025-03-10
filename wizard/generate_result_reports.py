@@ -118,11 +118,4 @@ class GenerateResultsExamen(Wizard):
                 'service_examen' : 'img'
             }])
 
-        yesterday = today - timedelta(days=1)
-        Syntheses = Pool().get("all_syntheses")
-
-        # 🔹 3️⃣ Supprimer les éléments de la veille
-        Syntheses_Result = Syntheses.search([('date_eng', '=', yesterday)])
-
-        if Syntheses_Result:
-            Syntheses.delete(Syntheses_Result)
+        return 'end'
