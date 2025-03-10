@@ -51,10 +51,12 @@ class GenerateResultsExamen(Wizard):
         pool = Pool()
         Syntheses = Pool().get("all_syntheses")
         LabResults = Pool().get("gnuhealth.lab")
+        LabRequests = Pool().get("gnuhealth.patient.lab.test")
         ExpResults = Pool().get("gnuhealth.exp")
+        ExpRequests = Pool().get("gnuhealth.patient.exp.test")
         ImgResults = Pool().get("gnuhealth.imaging.test.result")
+        ImgRequests = Pool().get("gnuhealth.imaging.test.request")
 
-        order = [('date_analysis', 'ASC')]
         start_datetime = datetime.combine(today, time.min)
         end_datetime = datetime.combine(today, time.max)
         LabResults = LabResults.search([('date_analysis', '>=', start_datetime),
@@ -67,6 +69,7 @@ class GenerateResultsExamen(Wizard):
         for LabResult in LabResults :
             dur = 0
             patient = LabResult.patient.name.name + " " + LabResult.patient.name.lastname
+            Service = LabRequests.search([('order', '=', LabResult.request_order)], limit=1)
             if LabResult.done_date :
                 dur = LabResult.done_date - LabResult.date_requested
             Syntheses.create([{
@@ -79,12 +82,14 @@ class GenerateResultsExamen(Wizard):
                 'duree' : dur,
                 'state' : LabResult.state,
                 'patient' : patient,
+                'service_cotation' : Service.service.name,
                 'service_examen' : 'lab'
             }])
 
         for ExpResult in ExpResults :
             dur = 0
             patient = ExpResult.patient.name.name + " " + ExpResult.patient.name.lastname
+            Service = ExpRequests.search([('order', '=', ExpResult.request_order)], limit=1)
             if ExpResult.done_date :
                 dur = ExpResult.done_date - ExpResult.date_requested
             Syntheses.create([{
@@ -97,12 +102,14 @@ class GenerateResultsExamen(Wizard):
                 'duree' : dur,
                 'state' : ExpResult.state,
                 'patient' : patient,
+                'service_cotation' : Service.service.name,
                 'service_examen' : 'exp'
             }])
 
         for ImgResult in ImgResults :
             dur = 0
             patient = ImgResult.patient.name.name + " " + ImgResult.patient.name.lastname
+            Service = ImgRequests.search([('request', '=', ImgResult.order)], limit=1)
             if ImgResult.done_date :
                 dur = ImgResult.done_date - ImgResult.request_date
             Syntheses.create([{
@@ -115,6 +122,7 @@ class GenerateResultsExamen(Wizard):
                 'duree' : dur,
                 'state' : ImgResult.state,
                 'patient' : patient,
+                'service_cotation' : Service.service.name,
                 'service_examen' : 'img'
             }])
 

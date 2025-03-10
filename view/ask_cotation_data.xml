@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<form>
+    <separator string="Do you want to generate the Results Of Cotation? 
+                         This Action Will create data for the day before.
+                        "
+        colspan="4" id="test_ask_cotation_data"/>
+    <newline/>
+    <separator string="Generate Validation Cotation" colspan="6"
+        id="generate_result_cotation_ask_create"/>
+</form>

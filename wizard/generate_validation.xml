@@ -19,5 +19,23 @@
             <field name="action" ref="act_generate_results_validation_examen"/>
         </record>
 
+        <!-- Sunthèse des résultats pour les cotations Normalement -->
+        <record model="ir.ui.view" id="view_generate_cotation_validation_examen">
+            <field name="model">results.cotation.init</field>
+            <field name="type">form</field>
+            <field name="name">ask_cotation_data</field>
+        </record>
+
+        <record model="ir.action.wizard" id="act_generate_cotation_validation_examen">
+            <field name="name">Generate Cotation Validation</field>
+            <field name="wiz_name">results.cotation.create</field>
+            <field name="model">syntheses_cotation</field>
+        </record>
+        <record model="ir.action.keyword" id="act_generate_results_validation_cotation_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">syntheses_cotation,-1</field>
+            <field name="action" ref="act_generate_cotation_validation_examen"/>
+        </record>
+
     </data>
 </tryton>

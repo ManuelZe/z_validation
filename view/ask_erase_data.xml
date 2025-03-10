@@ -5,6 +5,6 @@
                         "
         colspan="4" id="test_ask_erase_data"/>
     <newline/>
-    <separator string="Generate Validation EXamen" colspan="6"
+    <separator string="Generate Validation Examen" colspan="6"
         id="generate_result_examen_ask_create"/>
 </form>
