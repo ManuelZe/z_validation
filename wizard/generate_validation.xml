@@ -31,11 +31,11 @@
             <field name="wiz_name">results.cotation.create</field>
             <field name="model">syntheses_cotation</field>
         </record>
-        <record model="ir.action.keyword" id="act_generate_results_validation_cotation_keyword">
+        <!-- <record model="ir.action.keyword" id="act_generate_results_validation_cotation_keyword">
             <field name="keyword">form_action</field>
             <field name="model">syntheses_cotation,-1</field>
             <field name="action" ref="act_generate_cotation_validation_examen"/>
-        </record>
+        </record> -->
 
     </data>
 </tryton>
