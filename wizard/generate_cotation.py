@@ -65,10 +65,10 @@ class GenerateResultsCotation(Wizard):
         # Aprs on boucle les factures pour remplir le syntheses_cotation naturellement
 
         cotations = []
-        elt_cotation = {}
         
         for invoice in Services_Invoices:
             service = Services.search([('name', '=', invoice.reference)])
+            elt_cotation = {}
             elt_cotation['service_cotation'] = service[0].name
             elt_cotation['date_service'] = service[0].service_date
             elt_cotation['patient'] = service[0].patient.name.name + " " + service[0].patient.name.lastname

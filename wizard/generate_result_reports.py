@@ -69,8 +69,8 @@ class GenerateResultsExamen(Wizard):
         ImgResults = Pool().get("gnuhealth.imaging.test.result")
         ImgRequests = Pool().get("gnuhealth.imaging.test.request")
 
-        start_datetime = datetime.combine(today, time.min)
-        end_datetime = datetime.combine(today, time.max)
+        start_datetime = datetime.combine(self.start.date_debut, time.min)
+        end_datetime = datetime.combine(self.start.date_fin, time.max)
         LabResults = LabResults.search([('date_analysis', '>=', start_datetime),
                                         ('date_analysis', '<=', end_datetime)])
         ExpResults = ExpResults.search([('date_analysis', '>=', start_datetime),
@@ -79,6 +79,7 @@ class GenerateResultsExamen(Wizard):
                                         ('date', '<=', end_datetime)])
 
         for LabResult in LabResults :
+            data = {}
             dur = 0
             patient = LabResult.patient.name.name + " " + LabResult.patient.name.lastname
             Service = LabRequests.search([('request', '=', LabResult.request_order)], limit=1)
@@ -86,7 +87,9 @@ class GenerateResultsExamen(Wizard):
                 dur = LabResult.done_date - LabResult.date_requested
             else :
                 dur = timedelta(hours=0, minutes=0, seconds=0)
-            Syntheses.create([{
+
+            tests_id = 'lab' + LabResult.id
+            data = {
                 'order' : LabResult.request_order,
                 'numero_test' : LabResult.rec_name,
                 'actes_examen' : LabResult.test.name,
@@ -95,17 +98,24 @@ class GenerateResultsExamen(Wizard):
                 'date_eng' : datetime.now(),
                 'state' : LabResult.state,
                 'patient' : patient,
+                'tests_id' : tests_id,
                 'service_cotation' : Service[0].service.name,
                 'service_examen' : 'lab'
-            }])
+            }
+
+            if Syntheses.search([('tests_id','=', tests_id)]) == []:
+                Syntheses.create([data])
 
         for ExpResult in ExpResults :
+            data = {}
             dur = 0
             patient = ExpResult.patient.name.name + " " + ExpResult.patient.name.lastname
             Service = ExpRequests.search([('request', '=', ExpResult.request_order)], limit=1)
             if ExpResult.done_date :
                 dur = ExpResult.done_date - ExpResult.date_requested
-            Syntheses.create([{
+            
+            tests_id = 'exp' + ExpResult.id
+            data = {
                 'order' : ExpResult.request_order,
                 'numero_test' : ExpResult.rec_name,
                 'actes_examen' : ExpResult.test.name,
@@ -114,9 +124,13 @@ class GenerateResultsExamen(Wizard):
                 'date_eng' : datetime.now(),
                 'state' : ExpResult.state,
                 'patient' : patient,
+                'tests_id' : 'exp' + ExpResult.id,
                 'service_cotation' : Service[0].service.name,
                 'service_examen' : 'exp'
-            }])
+            }
+
+            if Syntheses.search([('tests_id','=', tests_id)]) == []:
+                Syntheses.create([data])
 
         for ImgResult in ImgResults :
             dur = 0
@@ -124,7 +138,8 @@ class GenerateResultsExamen(Wizard):
             Service = ImgRequests.search([('request', '=', ImgResult.order)], limit=1)
             if ImgResult.done_date :
                 dur = ImgResult.done_date - ImgResult.request_date
-            Syntheses.create([{
+            tests_id = 'img' + ImgResult.number
+            data = {
                 'order' : ImgResult.order,
                 'numero_test' : ImgResult.number,
                 'actes_examen' : ImgResult.requested_test.name,
@@ -133,8 +148,11 @@ class GenerateResultsExamen(Wizard):
                 'date_eng' : datetime.now(),
                 'state' : ImgResult.state,
                 'patient' : patient,
+                'tests_id' : 'img' + ImgResult.number,
                 'service_cotation' : Service[0].service.name,
                 'service_examen' : 'img'
-            }])
+            }
+            if Syntheses.search([('tests_id','=', tests_id)]) == []:
+                Syntheses.create([data])
 
         return 'end'

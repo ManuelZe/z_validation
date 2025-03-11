@@ -15,6 +15,7 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
     patient = fields.Char("Patient", readonly=True)
     service_cotation = fields.Char("Service de Cotation", readonly=True)
     state = fields.Char("Etat", readonly=True)
+    tests_id = fields.Char("ID", readonly=True)
     observation = fields.Text("Observation", help="Les différentes observations.")
     service_examen = fields.Char('Service Examen', help="Le service en questions")
     correct = fields.Boolean("Correct", help="Cocher si ceci est bien correct.")
