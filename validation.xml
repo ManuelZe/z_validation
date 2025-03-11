@@ -191,7 +191,7 @@ this repository contains the full copyright notices and license terms. -->
             action="validation_comptabilite_action"
             sequence="20"
             icon="tryton-settings"
-            id="menu_cotation_validation"/>
+            id="menu_compta_validation"/>
 
     </data>
 </tryton>
