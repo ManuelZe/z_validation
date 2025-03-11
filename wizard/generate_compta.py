@@ -53,7 +53,7 @@ class GenerateResultsCompta(Wizard):
         Cotations = Cotations.search([('correct', '=', True)])
         listes_cotations = [cotation.service_cotation for cotation in Cotations]
 
-        Commissions = Commissions.search([('origin.invoice.reference', 'in', listes_cotations)])
+        Commissions = Commissions.search([('origin.invoice.reference', 'in', listes_cotations, 'account.invoice')])
 
         list_commissions = []
         dict_commission = {}
