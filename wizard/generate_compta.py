@@ -66,6 +66,7 @@ class GenerateResultsCompta(Wizard):
             dict_commission['agent'] = commission.agent.rec_name
             
             a = Synth_Commissions.search([('number_invoice','=', commission.origin.invoice.number), ('designation','=', commission.origin.product.rec_name)])
+            print("Le différent a ----- ",a)
             if a == []:
                 list_commissions.append(dict_commission)
             
