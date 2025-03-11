@@ -86,7 +86,7 @@ class GenerateResultsExamen(Wizard):
             if LabResult.done_date :
                 dur = LabResult.done_date - LabResult.date_requested
             else :
-                dur = timedelta(0)
+                dur = timedelta(days=0, hours=0, minutes=0, seconds=0)
             data = {
                 'order' : LabResult.request_order,
                 'numero_test' : LabResult.rec_name,
