@@ -120,5 +120,40 @@ this repository contains the full copyright notices and license terms. -->
             sequence="20"
             id="menu_validation_examen_img"/>
 
+        <!-- VALIDATION DU SERVICE PIVOT PIVOT PIVOT -->
+
+        <record model="ir.ui.view" id="validation_cotation_form">
+            <field name="model">syntheses_cotation</field>
+            <field name="type">form</field>
+            <field name="name">cotation_pivot_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="validation_cotation_tree">
+            <field name="model">syntheses_cotation</field>
+            <field name="type">tree</field>
+            <field name="name">cotation_pivot_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="validation_cotation_action">
+            <field name="name">Imagerie</field>
+            <field name="res_model">syntheses_cotation</field>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_cotation_action_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="validation_cotation_tree"/>
+            <field name="act_window" ref="validation_cotation_action"/>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_cotation_action_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="validation_cotation_form"/>
+            <field name="act_window" ref="validation_cotation_action"/>
+        </record>
+
+        <menuitem
+            parent="menu_validation"
+            action="validation_cotation_action"
+            sequence="20"
+            id="menu_cotation_validation"/>
+
     </data>
 </tryton>

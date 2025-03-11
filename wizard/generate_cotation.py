@@ -48,9 +48,40 @@ class GenerateResultsCotation(Wizard):
     def transition_generate_cotation_examen_validation(self):
         Examens = Pool().get("all_syntheses")
         Cotations = Pool().get('syntheses_cotation')
-        
+        Services = Pool().get("gnuhealth.health_service")
+        Invoices = Pool().get("account.invoice")
+
         Examens = Examens.search([('correct', '=', True)])
+        liste_cotations = [examen.service_cotation for examen in Examens]
+        Services_Invoices = Invoices.search([('reference', 'in', liste_cotations), ('state', 'in', ['paid', 'posted'])])
+
+        # Voici le parcours utilisé pour avoir ses données
+        # Nous prenons une liste des services de cotation des différents Examens
+        # Corrects précédemment Obtenus.
+        # Ensuite On récupère les factures dont la référence(service de cotation)
+        # est à l'intérieur de la liste des service de cotations.
+        # Aprs on boucle les factures pour remplir le syntheses_cotation naturellement
 
         cotations = []
+        elt_cotation = {}
+        
+        for invoice in Services_Invoices:
+            service = Services.search([('name', '=', invoice.reference)])
+            elt_cotation['service_cotation'] = service[0].name
+            elt_cotation['date_service'] = service[0].service_date
+            elt_cotation['patient'] = service[0].patient.name.name + " " + service[0].patient.name.lastname
+            elt_cotation['etat'] = service[0].state
+            elt_cotation['prescripteur'] = service[0].requestor.name.name + " " + service[0].requestor.name.lastname
+            elt_cotation['date_invoice'] = invoice.invoice_date
+            elt_cotation['number_invoice'] = invoice.number
+
+            if Cotations.search([('number_invoice','=', invoice.number)]) == []:
+                cotations.append(elt_cotation)
+
+        Cotations.create(cotations)
+        
+        return 'end'
+    
+
 
         

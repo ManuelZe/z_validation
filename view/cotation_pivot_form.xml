@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form>
+    <label name="service_cotation"/>
+    <field name="service_cotation"/>
+    <label name="date_service"/>
+    <field name="date_service"/>
+    <label name="patient"/>
+    <field name="patient"/>
+    <label name="etat"/>
+    <field name="etat"/>
+    <label name="prescripteur"/>
+    <field name="prescripteur"/>
+    <label name="date_invoice"/>
+    <field name="date_invoice"/>
+    <label name="number_invoice"/>
+    <field name="number_invoice"/>
+    <label name="observation"/>
+    <field name="observation"/>
+    <label name="correct"/>
+    <field name="correct"/>
+</form>
