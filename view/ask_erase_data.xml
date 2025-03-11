@@ -7,4 +7,10 @@
     <newline/>
     <separator string="Generate Validation Examen" colspan="6"
         id="generate_result_examen_ask_create"/>
+    
+
+    <field name="date_debut"/>
+    <label name="date_debut"/>
+    <field name="date_fin"/>
+    <label name="date_fin"/>
 </form>

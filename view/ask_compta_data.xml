@@ -7,4 +7,5 @@
     <newline/>
     <separator string="Generate Validation Comptabilité" colspan="6"
         id="generate_result_compta_ask_create"/>
+
 </form>

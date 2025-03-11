@@ -22,15 +22,18 @@
 #
 ##############################################################################
 from datetime import date, timedelta, datetime, time
-from trytond.model import ModelView
+from trytond.model import ModelView, ModelSQL, fields
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.transaction import Transaction
 from trytond.pool import Pool
 
 
-class GenerateResultsExamenInit(ModelView):
+class GenerateResultsExamenInit(ModelSQL,ModelView):
     'Generate Data Exam - Validation'
     __name__ = 'results.examen.init'
+
+    date_debut = fields.Date("Date de Début")
+    date_fin = fields.Date("Date de Fin")
 
 
 class GenerateResultsExamen(Wizard):
@@ -43,6 +46,15 @@ class GenerateResultsExamen(Wizard):
             Button('Generate Validation', 'generate_results_examen_validation', 'tryton-ok',
                 True),
             ])
+
+    def default_start(self, fields):
+        today = date.today()
+        default = {
+            'date_debut': datetime.combine(today, time.min),
+            'date_fin': datetime.combine(today, time.max),
+            }
+        return default
+    
     generate_results_examen_validation = StateTransition()
 
     def transition_generate_results_examen_validation(self):
@@ -57,6 +69,7 @@ class GenerateResultsExamen(Wizard):
         ImgResults = Pool().get("gnuhealth.imaging.test.result")
         ImgRequests = Pool().get("gnuhealth.imaging.test.request")
 
+        print("La date de début ----- ", self.start.date_debut)
         start_datetime = datetime.combine(today, time.min)
         end_datetime = datetime.combine(today, time.max)
         LabResults = LabResults.search([('date_analysis', '>=', start_datetime),
