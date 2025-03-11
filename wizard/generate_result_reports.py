@@ -85,6 +85,8 @@ class GenerateResultsExamen(Wizard):
             Service = LabRequests.search([('request', '=', LabResult.request_order)], limit=1)
             if LabResult.done_date :
                 dur = LabResult.done_date - LabResult.date_requested
+            else :
+                dur = timedelta(hours=0, minutes=0, seconds=0)
             data = {
                 'order' : LabResult.request_order,
                 'numero_test' : LabResult.rec_name,
