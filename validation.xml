@@ -183,7 +183,7 @@ this repository contains the full copyright notices and license terms. -->
         <record model="ir.action.act_window.view" id="validation_comptabilite_action_form_view">
             <field name="sequence" eval="20"/>
             <field name="view" ref="validation_comptabilite_form"/>
-            <field name="act_window" ref="validation_comptabilite_form"/>
+            <field name="act_window" ref="validation_comptabilite_action"/>
         </record>
 
         <menuitem
