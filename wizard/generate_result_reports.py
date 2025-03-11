@@ -86,7 +86,7 @@ class GenerateResultsExamen(Wizard):
             if LabResult.done_date :
                 dur = LabResult.done_date - LabResult.date_requested
             else :
-                dur = timedelta(hours=0, minutes=0, seconds=0)
+                dur = timedelta(0)
             data = {
                 'order' : LabResult.request_order,
                 'numero_test' : LabResult.rec_name,
@@ -94,7 +94,7 @@ class GenerateResultsExamen(Wizard):
                 'date_emm' : LabResult.date_requested,
                 'date_result' : LabResult.done_date,
                 'date_eng' : datetime.now(),
-                'duree' : str(dur),
+                'duree' : dur,
                 'state' : LabResult.state,
                 'patient' : patient,
                 'service_cotation' : Service[0].service.name,
@@ -109,7 +109,7 @@ class GenerateResultsExamen(Wizard):
                 'date_emm' : LabResult.date_requested,
                 'date_result' : LabResult.done_date,
                 'date_eng' : datetime.now(),
-                'duree' : str(dur),
+                'duree' : dur,
                 'state' : LabResult.state,
                 'patient' : patient,
                 'service_cotation' : Service[0].service.name,
@@ -149,7 +149,7 @@ class GenerateResultsExamen(Wizard):
                 'date_emm' : ImgResult.request_date,
                 'date_result' : ImgResult.done_date,
                 'date_eng' : datetime.now(),
-                'duree' : str(dur),
+                'duree' : dur,
                 'state' : ImgResult.state,
                 'patient' : patient,
                 'service_cotation' : Service[0].service.name,
