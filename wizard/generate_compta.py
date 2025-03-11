@@ -58,6 +58,7 @@ class GenerateResultsCompta(Wizard):
 
         list_commissions = []
         dict_commission = {}
+        print("Liste commission ----- ",Commissions)
         for commission in Commissions:
             dict_commission['service_cotation'] = commission.origin.invoice.reference
             dict_commission['number_invoice'] = commission.origin.invoice.number
@@ -65,6 +66,7 @@ class GenerateResultsCompta(Wizard):
             dict_commission['designation'] = commission.origin.product.rec_name
             dict_commission['agent'] = commission.agent.rec_name
             
+            print("commission ----- ",commission)
             a = Synth_Commissions.search([('number_invoice','=', commission.origin.invoice.number), ('designation','=', commission.origin.product.rec_name)])
             print("Le différent a ----- ",a)
             if a == []:
