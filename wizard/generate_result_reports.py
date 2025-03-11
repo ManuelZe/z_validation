@@ -69,7 +69,7 @@ class GenerateResultsExamen(Wizard):
         ImgResults = Pool().get("gnuhealth.imaging.test.result")
         ImgRequests = Pool().get("gnuhealth.imaging.test.request")
 
-        print("La date de début ----- ", self.start.date_debut)
+        print("La date de début ----- ", datetime.combine(self.start.date_debut, time.min))
         start_datetime = datetime.combine(today, time.min)
         end_datetime = datetime.combine(today, time.max)
         LabResults = LabResults.search([('date_analysis', '>=', start_datetime),
@@ -82,7 +82,7 @@ class GenerateResultsExamen(Wizard):
         for LabResult in LabResults :
             dur = 0
             patient = LabResult.patient.name.name + " " + LabResult.patient.name.lastname
-            Service = LabRequests.search([('order', '=', LabResult.request_order)], limit=1)
+            Service = LabRequests.search([('request', '=', LabResult.request_order)], limit=1)
             if LabResult.done_date :
                 dur = LabResult.done_date - LabResult.date_requested
             Syntheses.create([{
@@ -102,7 +102,7 @@ class GenerateResultsExamen(Wizard):
         for ExpResult in ExpResults :
             dur = 0
             patient = ExpResult.patient.name.name + " " + ExpResult.patient.name.lastname
-            Service = ExpRequests.search([('order', '=', ExpResult.request_order)], limit=1)
+            Service = ExpRequests.search([('request', '=', ExpResult.request_order)], limit=1)
             if ExpResult.done_date :
                 dur = ExpResult.done_date - ExpResult.date_requested
             Syntheses.create([{
