@@ -68,7 +68,7 @@ class GenerateResultsCompta(Wizard):
             
             a = Synth_Commissions.search([('number_invoice','=', commission.origin.invoice.number), ('service_cotation','=', commission.origin.invoice.reference)])
             if a == []:
-                print(a)
+                print(f"----------- * 8")
                 list_commissions.append(dict_commission)
             
             print(list_commissions)
