@@ -85,6 +85,21 @@ class GenerateResultsExamen(Wizard):
             Service = LabRequests.search([('request', '=', LabResult.request_order)], limit=1)
             if LabResult.done_date :
                 dur = LabResult.done_date - LabResult.date_requested
+            data = {
+                'order' : LabResult.request_order,
+                'numero_test' : LabResult.rec_name,
+                'actes_examen' : LabResult.test.name,
+                'date_emm' : LabResult.date_requested,
+                'date_result' : LabResult.done_date,
+                'date_eng' : today,
+                'duree' : dur,
+                'state' : LabResult.state,
+                'patient' : patient,
+                'service_cotation' : Service[0].service.name,
+                'service_examen' : 'lab'
+            }
+
+            print(data)
             Syntheses.create([{
                 'order' : LabResult.request_order,
                 'numero_test' : LabResult.rec_name,
