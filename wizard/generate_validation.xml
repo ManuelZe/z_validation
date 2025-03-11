@@ -50,7 +50,7 @@
             <field name="wiz_name">results.compta.create</field>
             <field name="model">syntheses_commission</field>
         </record>
-        <record model="ir.action.keyword" id="act_generate_results_validation_cotation_keyword">
+        <record model="ir.action.keyword" id="act_generate_results_validation_compta_keyword">
             <field name="keyword">form_action</field>
             <field name="model">syntheses_commission,-1</field>
             <field name="action" ref="act_generate_compta_validation_examen"/>
