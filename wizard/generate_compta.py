@@ -57,9 +57,9 @@ class GenerateResultsCompta(Wizard):
         Commissions = [commission for commission in Commissions if commission.origin.invoice.reference in listes_cotations]
 
         list_commissions = []
-        dict_commission = {}
         print("Liste commission ----- ",Commissions)
         for commission in Commissions:
+            dict_commission = {}
             dict_commission['service_cotation'] = commission.origin.invoice.reference
             dict_commission['number_invoice'] = commission.origin.invoice.number
             dict_commission['amount'] = commission.amount
