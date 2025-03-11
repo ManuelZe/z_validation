@@ -71,7 +71,8 @@ class GenerateResultsCompta(Wizard):
             print("Le différent a ----- ",a)
             if a == []:
                 list_commissions.append(dict_commission)
-            
+        
+        print("Le différent liste ----- ",list_commissions)
         Synth_Commissions.create(list_commissions)
 
         return 'end'
