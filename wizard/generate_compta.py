@@ -70,6 +70,7 @@ class GenerateResultsCompta(Wizard):
                 print(a)
                 list_commissions.append(dict_commission)
             
+            print(list_commissions)
             Synth_Commissions.create(list_commissions)
 
         return 'end'
