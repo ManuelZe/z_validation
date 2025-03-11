@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<tree>
+    <field name="service_cotation"/>
+    <field name="number_invoice"/>
+    <field name="amount"/>
+    <field name="agent"/>
+    <field name="designation"/>
+    <field name="correct"/>
+    <field name="observation" expand="1"/>
+</tree>

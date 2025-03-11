@@ -18,7 +18,7 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
     state = fields.Char("Etat", readonly=True)
     observation = fields.Text("Observation", help="Les différentes observations.")
     service_examen = fields.Char('Service Examen', help="Le service en questions")
-    correct = fields.Boolean("Correcte", help="Cocher si ceci est bien correct.")
+    correct = fields.Boolean("Correct", help="Cocher si ceci est bien correct.")
 
 
 
@@ -26,7 +26,7 @@ class Syntheses_Pivot(ModelSQL, ModelView):
     'Synthèses des différents Service de Cotation'
     __name__ = 'syntheses_cotation'
 
-    service_cotation = fields.Char("Service de COtation", readonly=True)
+    service_cotation = fields.Char("Service de Cotation", readonly=True)
     date_service = fields.Date("Date du Service de Cotation", readonly=True)
     patient = fields.Char("Patient", readonly=True)
     etat = fields.Char("Etat du Service", readonly=True)
@@ -34,4 +34,21 @@ class Syntheses_Pivot(ModelSQL, ModelView):
     date_invoice = fields.Char("Date de la Facture", readonly=True)
     number_invoice = fields.Char("Numero de Facture", readonly=True)
     observation = fields.Char('Observations', help="Des Observations.")
-    correct = fields.Boolean("Correcte", help="Cocher si ceci est bien correct.")
+    correct = fields.Boolean("Correct", help="Cocher si ceci est bien correct.")
+
+
+class Syntheses_Commission(ModelSQL, ModelView):
+    "Un Pas vers les commissions A Valider"
+    __name__ = 'syntheses_commission'
+
+    service_cotation = fields.Char("Service De Cotation", readonly=True)
+    number_invoice = fields.Char("Facture", readonly=True)
+    amount = fields.Char("Montant", readonly=True)
+    agent = fields.Char("Agent De Commission", readonly=True)
+    designation = fields.Char("Désignation", readonly=True)
+    observation = fields.Char("Observations")
+    correct = fields.Boolean("Correct", help="Cocher si ceci est bien correct.")
+
+
+
+

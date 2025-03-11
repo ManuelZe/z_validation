@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!-- This file is part of Tryton.  The COPYRIGHT file at the top level of
+this repository contains the full copyright notices and license terms. -->
+<form>
+    <label name="service_cotation"/>
+    <field name="service_cotation"/>
+    <label name="number_invoice"/>
+    <field name="number_invoice"/>
+    <label name="amount"/>
+    <field name="amount"/>
+    <label name="agent"/>
+    <field name="agent"/>
+    <label name="designation"/>
+    <field name="designation"/>
+    <label name="observation"/>
+    <field name="observation"/>
+    <label name="correct"/>
+    <field name="correct"/>
+</form>

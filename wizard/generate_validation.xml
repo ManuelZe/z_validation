@@ -37,5 +37,24 @@
             <field name="action" ref="act_generate_cotation_validation_examen"/>
         </record>
 
+
+        <!-- ACTION POUR SYNTHESE DES VALIDATIONS LIGNE PAR LIGNE COMPTABILITÉ -->
+        <record model="ir.ui.view" id="view_generate_compta_validation_examen">
+            <field name="model">results.compta.init</field>
+            <field name="type">form</field>
+            <field name="name">ask_compta_data</field>
+        </record>
+
+        <record model="ir.action.wizard" id="act_generate_cotation_validation_examen">
+            <field name="name">Generate Cotation Validation</field>
+            <field name="wiz_name">results.compta.create</field>
+            <field name="model">syntheses_commission</field>
+        </record>
+        <record model="ir.action.keyword" id="act_generate_results_validation_cotation_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">syntheses_commission,-1</field>
+            <field name="action" ref="act_generate_cotation_validation_examen"/>
+        </record>
+
     </data>
 </tryton>

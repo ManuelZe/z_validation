@@ -156,5 +156,42 @@ this repository contains the full copyright notices and license terms. -->
             icon="tryton-settings"
             id="menu_cotation_validation"/>
 
+        
+        <!-- VALIDATION DU SERVICE COMPTABILITÉ -->
+
+        <record model="ir.ui.view" id="validation_comptabilite_form">
+            <field name="model">syntheses_commission</field>
+            <field name="type">form</field>
+            <field name="name">comptabilite_validation_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="validation_comptabilite_tree">
+            <field name="model">syntheses_commission</field>
+            <field name="type">tree</field>
+            <field name="name">comptabilite_validation_tree</field>
+        </record>
+
+        <record model="ir.action.act_window" id="validation_comptabilite_action">
+            <field name="name">Comptabilité</field>
+            <field name="res_model">syntheses_commission</field>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_comptabilite_action_tree_view">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="validation_comptabilite_tree"/>
+            <field name="act_window" ref="validation_comptabilite_action"/>
+        </record>
+        <record model="ir.action.act_window.view" id="validation_comptabilite_action_form_view">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="validation_comptabilite_form"/>
+            <field name="act_window" ref="validation_comptabilite_form"/>
+        </record>
+
+        <menuitem
+            parent="menu_validation"
+            action="validation_comptabilite_action"
+            sequence="20"
+            icon="tryton-settings"
+            id="menu_cotation_validation"/>
+
     </data>
 </tryton>

@@ -3,8 +3,8 @@
     <separator string="Do you want to generate the Results? 
                          This Action Will add existing data.
                         "
-        colspan="4" id="test_ask_erase_data"/>
+        colspan="4" id="test_ask_compta_data"/>
     <newline/>
-    <separator string="Generate Validation Examen" colspan="6"
-        id="generate_result_examen_ask_create"/>
+    <separator string="Generate Validation Comptabilité" colspan="6"
+        id="generate_result_compta_ask_create"/>
 </form>
