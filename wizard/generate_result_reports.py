@@ -95,7 +95,7 @@ class GenerateResultsExamen(Wizard):
                 'duree' : dur,
                 'state' : LabResult.state,
                 'patient' : patient,
-                'service_cotation' : Service.service.name,
+                'service_cotation' : Service[0].service.name,
                 'service_examen' : 'lab'
             }])
 
@@ -115,7 +115,7 @@ class GenerateResultsExamen(Wizard):
                 'duree' : dur,
                 'state' : ExpResult.state,
                 'patient' : patient,
-                'service_cotation' : Service.service.name,
+                'service_cotation' : Service[0].service.name,
                 'service_examen' : 'exp'
             }])
 
@@ -135,7 +135,7 @@ class GenerateResultsExamen(Wizard):
                 'duree' : dur,
                 'state' : ImgResult.state,
                 'patient' : patient,
-                'service_cotation' : Service.service.name,
+                'service_cotation' : Service[0].service.name,
                 'service_examen' : 'img'
             }])
 
