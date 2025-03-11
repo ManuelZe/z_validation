@@ -66,10 +66,10 @@ class GenerateResultsCompta(Wizard):
             dict_commission['agent'] = commission.agent.rec_name
             
             a = Synth_Commissions.search([('number_invoice','=', commission.origin.invoice.number), ('service_cotation','=', commission.origin.invoice.reference)])
-            print(a)
-            if Synth_Commissions.search([('number_invoice','=', commission.origin.invoice.number), ('service_cotation','=', commission.origin.invoice.reference)]) == []:
+            if a == []:
+                print(a)
                 list_commissions.append(dict_commission)
-
+            
             Synth_Commissions.create(list_commissions)
 
         return 'end'
