@@ -88,7 +88,7 @@ class GenerateResultsExamen(Wizard):
             else :
                 dur = timedelta(hours=0, minutes=0, seconds=0)
 
-            tests_id = 'lab' + LabResult.id
+            tests_id = 'lab' + str(LabResult.id)
             data = {
                 'order' : LabResult.request_order,
                 'numero_test' : LabResult.rec_name,
@@ -114,7 +114,7 @@ class GenerateResultsExamen(Wizard):
             if ExpResult.done_date :
                 dur = ExpResult.done_date - ExpResult.date_requested
             
-            tests_id = 'exp' + ExpResult.id
+            tests_id = 'exp' + str(ExpResult.id)
             data = {
                 'order' : ExpResult.request_order,
                 'numero_test' : ExpResult.rec_name,
@@ -124,7 +124,7 @@ class GenerateResultsExamen(Wizard):
                 'date_eng' : datetime.now(),
                 'state' : ExpResult.state,
                 'patient' : patient,
-                'tests_id' : 'exp' + ExpResult.id,
+                'tests_id' : tests_id,
                 'service_cotation' : Service[0].service.name,
                 'service_examen' : 'exp'
             }
@@ -138,7 +138,7 @@ class GenerateResultsExamen(Wizard):
             Service = ImgRequests.search([('request', '=', ImgResult.order)], limit=1)
             if ImgResult.done_date :
                 dur = ImgResult.done_date - ImgResult.request_date
-            tests_id = 'img' + ImgResult.number
+            tests_id = 'img' + str(ImgResult.number)
             data = {
                 'order' : ImgResult.order,
                 'numero_test' : ImgResult.number,
@@ -148,7 +148,7 @@ class GenerateResultsExamen(Wizard):
                 'date_eng' : datetime.now(),
                 'state' : ImgResult.state,
                 'patient' : patient,
-                'tests_id' : 'img' + ImgResult.number,
+                'tests_id' : tests_id,
                 'service_cotation' : Service[0].service.name,
                 'service_examen' : 'img'
             }
