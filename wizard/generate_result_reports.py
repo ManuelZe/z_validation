@@ -146,7 +146,6 @@ class GenerateResultsExamen(Wizard):
                 'date_emm' : ImgResult.request_date,
                 'date_result' : ImgResult.done_date,
                 'date_eng' : datetime.now(),
-                'duree' : dur,
                 'state' : ImgResult.state,
                 'patient' : patient,
                 'service_cotation' : Service[0].service.name,
