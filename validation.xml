@@ -135,7 +135,7 @@ this repository contains the full copyright notices and license terms. -->
         </record>
 
         <record model="ir.action.act_window" id="validation_cotation_action">
-            <field name="name">Imagerie</field>
+            <field name="name">PIVOT</field>
             <field name="res_model">syntheses_cotation</field>
         </record>
         <record model="ir.action.act_window.view" id="validation_cotation_action_tree_view">
@@ -153,6 +153,7 @@ this repository contains the full copyright notices and license terms. -->
             parent="menu_validation"
             action="validation_cotation_action"
             sequence="20"
+            icon="tryton-settings"
             id="menu_cotation_validation"/>
 
     </data>
