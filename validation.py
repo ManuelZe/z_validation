@@ -12,7 +12,6 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
     date_emm = fields.DateTime("Date d'Emission", readonly=True)
     date_eng = fields.DateTime("Date d'Enregistrement", readonly=True)
     date_result = fields.DateTime("Date de Résultat", readonly=True)
-    duree = fields.Time("Durée", readonly=True)
     patient = fields.Char("Patient", readonly=True)
     service_cotation = fields.Char("Service de Cotation", readonly=True)
     state = fields.Char("Etat", readonly=True)
