@@ -12,6 +12,7 @@ __all__ = ['register']
 def register():
     Pool.register(
         validation.Syntheses_Resultats_Examen,
+        validation.Syntheses_Pivot,
         generate_result_reports.GenerateResultsExamenInit,
         generate_cotation.GenerateResultsCotationInit,
         module='z_validation', type_='model')
