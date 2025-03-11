@@ -53,7 +53,9 @@ class GenerateResultsCotation(Wizard):
 
         Examens = Examens.search([('correct', '=', True)])
         liste_cotations = [examen.service_cotation for examen in Examens]
+        print("La liste des cotations ----- ", liste_cotations)
         Services_Invoices = Invoices.search([('reference', 'in', liste_cotations), ('state', 'in', ['paid', 'posted'])])
+        print("Le service Invoice -- ", Services_Invoices)
 
         # Voici le parcours utilisé pour avoir ses données
         # Nous prenons une liste des services de cotation des différents Examens

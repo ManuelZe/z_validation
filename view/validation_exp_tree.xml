@@ -2,7 +2,7 @@
 <tree>
     <field name="order"/>
     <field name="numero_test"/>
-    <field name="service_examen"/>
+    <field name="service_cotation"/>
     <field name="actes_examen"/>
     <field name="state"/>
     <field name="patient"/>
