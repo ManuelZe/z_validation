@@ -5,6 +5,7 @@ from trytond.pool import Pool
 from . import validation
 from .wizard import generate_result_reports
 from .wizard import generate_cotation
+from .wizard import validate_commission
 from .wizard import generate_compta
 
 __all__ = ['register']
@@ -18,11 +19,13 @@ def register():
         generate_result_reports.GenerateResultsExamenInit,
         generate_cotation.GenerateResultsCotationInit,
         generate_compta.GenerateResultsComptabiliteInit,
+        validate_commission.ActualiseCommissionInit,
         module='z_validation', type_='model')
     Pool.register(
         generate_result_reports.GenerateResultsExamen,
         generate_cotation.GenerateResultsCotation,
         generate_compta.GenerateResultsCompta,
+        validate_commission.ActualiseCommission,
         module='z_validation', type_='wizard')
     Pool.register(
         module='z_validation', type_='report')
