@@ -49,7 +49,7 @@ class ActualiseCommission(Wizard):
         Commissions = Pool().get("commission")
         Synth_Commissions = Pool().get("syntheses_commission")
 
-        Comptas = Synth_Commissions.sarch([('correct', '=', True)])
+        Comptas = Synth_Commissions.search([('correct', '=', True)])
 
         for Compta in Comptas:
             Commissions_Search, = Commissions.search([('origin.invoice.reference', '=', Compta.service_cotation), ('origin.product.rec_name', '=', Compta.designation)])
