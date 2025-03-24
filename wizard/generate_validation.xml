@@ -56,5 +56,23 @@
             <field name="action" ref="act_generate_compta_validation_examen"/>
         </record>
 
+        <!-- Action d'actualise des différentes commissions au niveau de COMPTABILITÉ -->
+        <record model="ir.ui.view" id="view_actualize_commission_init">
+            <field name="model">actualize.commission.init</field>
+            <field name="type">form</field>
+            <field name="name">ask_actualize_commission</field>
+        </record>
+
+        <record model="ir.action.wizard" id="act_actualize_commission">
+            <field name="name">Actualize Commission</field>
+            <field name="wiz_name">actualize.commission</field>
+            <field name="model">syntheses_commission</field>
+        </record>
+        <record model="ir.action.keyword" id="act_actualize_commission_keyword">
+            <field name="keyword">form_action</field>
+            <field name="model">syntheses_commission,-1</field>
+            <field name="action" ref="act_actualize_commission"/>
+        </record>
+
     </data>
 </tryton>

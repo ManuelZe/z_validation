@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<form>
+    <separator string="DO You Want to Actualize the COMMISSIONS?.
+                        This action is IRREVERSIBLE.
+                        "
+        colspan="4" id="test_ask_actualize_cotation"/>
+    <newline/>
+    <separator string="Actualize commission" colspan="6"
+        id="actualize_commission_eleven"/>
+</form>
