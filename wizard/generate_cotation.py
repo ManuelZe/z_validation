@@ -77,8 +77,10 @@ class GenerateResultsCotation(Wizard):
             elt_cotation['date_invoice'] = invoice.invoice_date
             elt_cotation['number_invoice'] = invoice.number
 
-            if Cotations.search([('number_invoice','=', invoice.number)]) == []:
-                cotations.append(elt_cotation)
+            for exam in Examens:
+                elt_cotation['examen'] = exam.actes_examen
+                if Cotations.search([('number_invoice','=', invoice.number), ('examen','=', exam.actes_examen)]) == []:
+                    cotations.append(elt_cotation)
 
         Cotations.create(cotations)
         

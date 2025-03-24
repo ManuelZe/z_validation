@@ -8,6 +8,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="date_service"/>
     <label name="patient"/>
     <field name="patient"/>
+    <label name="examen"/>
+    <field name="examen"/>
     <label name="etat"/>
     <field name="etat"/>
     <label name="prescripteur"/>

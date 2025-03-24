@@ -4,6 +4,7 @@
     <field name="date_service"/>
     <field name="etat"/>
     <field name="patient"/>
+    <field name="examen"/>
     <field name="prescripteur"/>
     <field name="number_invoice"/>
     <field name="correct"/>

@@ -33,6 +33,7 @@ class Syntheses_Pivot(ModelSQL, ModelView):
     prescripteur = fields.Char("Prescripteur", readonly=True)
     date_invoice = fields.Char("Date de la Facture", readonly=True)
     number_invoice = fields.Char("Numero de Facture", readonly=True)
+    examen = fields.Char("Examen / Designation", readonly=True)
     observation = fields.Char('Observations', help="Des Observations.")
     correct = fields.Boolean("Correct", help="Cocher si ceci est bien correct.")
 
