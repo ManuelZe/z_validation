@@ -21,10 +21,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from datetime import date, timedelta, datetime, time
+import re
 from trytond.model import ModelView
 from trytond.wizard import Wizard, StateTransition, StateView, Button
-from trytond.transaction import Transaction
 from trytond.pool import Pool
 
 
@@ -55,7 +54,7 @@ class GenerateResultsCompta(Wizard):
         listes_examens = [cotation.examen for cotation in Cotations]
 
         Commissions = Commissions.search([])
-        Commissions = [commission for commission in Commissions if commission.origin.invoice.reference in listes_cotations and commission.origin.product.rec_name in listes_examens]
+        Commissions = [commission for commission in Commissions if commission.origin.invoice.reference in listes_cotations and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_examens]
 
         list_commissions = []
         for commission in Commissions:
