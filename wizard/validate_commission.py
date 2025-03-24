@@ -26,7 +26,7 @@ from trytond.model import ModelView, ModelSQL, fields
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.transaction import Transaction
 from trytond.pool import Pool
-
+import re
 
 class ActualiseCommissionInit(ModelSQL,ModelView):
     'Actualize Commission - Init'
@@ -52,7 +52,8 @@ class ActualiseCommission(Wizard):
         Comptas = Synth_Commissions.search([('correct', '=', True)])
 
         for Compta in Comptas:
-            Commissions_Search, = Commissions.search([('origin.invoice.reference', '=', Compta.service_cotation), ('origin.product.rec_name', '=', Compta.designation)])
+            Commissions_Search, = Commissions.search([('origin.invoice.reference', '=', Compta.service_cotation, 'account.invoice.line'), 
+                                                     ('origin.product.name', '=', re.sub(r"^\[.*?\]\s*", "", Compta.designation), 'account.invoice.line')])
             Commissions_Search.is_validate = True
             Commissions_Search.save()
 
