@@ -88,8 +88,6 @@ class GenerateResultsCotation(Wizard):
                             cotations = []
                             elt_cotation['examen'] = exam.actes_examen
                             cotations.append(elt_cotation)
-
-                            print("Cotations ---------------------- ", len(cotations))
                             Cotations.create(cotations)
                         break
         
