@@ -71,8 +71,6 @@ class GenerateResultsCotation(Wizard):
         # est à l'intérieur de la liste des service de cotations.
         # Aprs on boucle les factures pour remplir le syntheses_cotation naturellement
 
-        cotations = []
-        
         for invoice in Services_Invoices:
             elt_cotation = {}
             service = Services.search([('name', '=', invoice.reference)])
@@ -87,6 +85,7 @@ class GenerateResultsCotation(Wizard):
                 for exam in Examens:
                     if line.product.name == exam.actes_examen:
                         if Cotations.search([('number_invoice','=', invoice.number), ('examen','=', exam.actes_examen)]) == [] :
+                            cotations = []
                             elt_cotation['examen'] = exam.actes_examen
                             cotations.append(elt_cotation)
 
