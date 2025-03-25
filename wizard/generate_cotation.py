@@ -48,6 +48,13 @@ class GenerateResultsCotation(Wizard):
     def transition_generate_cotation_examen_validation(self):
         Examens = Pool().get("all_syntheses")
         Cotations = Pool().get('syntheses_cotation')
+
+        # Supprimer dES ELEMENTS
+        # Cotations_x = Cotations.search([])
+        # Cotations.delete(Cotations_x)
+        # return 'end'
+    
+
         Services = Pool().get("gnuhealth.health_service")
         Invoices = Pool().get("account.invoice")
 
@@ -77,17 +84,18 @@ class GenerateResultsCotation(Wizard):
             elt_cotation['date_invoice'] = invoice.invoice_date
             elt_cotation['number_invoice'] = invoice.number
             for line in invoice.lines:
+                print("toto-------- ",len(Examens))
+                return 'end'
                 for exam in Examens:
-                    if line.product == exam.actes_examen:
+                    if line.product.name == exam.actes_examen:
                         elt_cotation['examen'] = exam.actes_examen
                         if Cotations.search([('number_invoice','=', invoice.number), ('examen','=', exam.actes_examen)]) == [] :
                             cotations.append(elt_cotation)
-
+                            [item for item, count in counts.items() if count > 1]
                             print("Cotations ---------------------- ", len(cotations))
                             # Cotations.create(cotations)
-                    else:
                         break
-        
+
         return 'end'
     
 
