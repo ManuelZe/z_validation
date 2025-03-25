@@ -84,7 +84,6 @@ class GenerateResultsCotation(Wizard):
             elt_cotation['date_invoice'] = invoice.invoice_date
             elt_cotation['number_invoice'] = invoice.number
             for line in invoice.lines:
-                print("toto-------- ",len(Examens))
                 # return 'end'
                 for exam in Examens:
                     if line.product.name == exam.actes_examen:
@@ -95,6 +94,7 @@ class GenerateResultsCotation(Wizard):
                         break
         
         if cotations:
+            print("Longueur des Cotations ------- ", len(cotations))
             Cotations.create(cotations)
 
         return 'end'
