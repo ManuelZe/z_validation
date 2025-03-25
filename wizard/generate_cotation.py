@@ -51,37 +51,55 @@ class GenerateResultsCotation(Wizard):
         Services = Pool().get("gnuhealth.health_service")
         Invoices = Pool().get("account.invoice")
 
+        # 1️⃣ Récupérer tous les examens corrects en une seule requête
         Examens = Examens.search([('correct', '=', True)])
+
+        # 2️⃣ Construire une liste des références de cotation
         liste_cotations = [examen.service_cotation for examen in Examens]
         print("La liste des cotations ----- ", liste_cotations)
-        Services_Invoices = Invoices.search([('reference', 'in', liste_cotations), ('state', 'in', ['paid', 'posted'])])
+
+        # 3️⃣ Récupérer toutes les factures associées en une seule requête
+        Services_Invoices = Invoices.search([
+            ('reference', 'in', liste_cotations),
+            ('state', 'in', ['paid', 'posted'])
+        ])
         print("Le service Invoice -- ", Services_Invoices)
 
-        # Voici le parcours utilisé pour avoir ses données
-        # Nous prenons une liste des services de cotation des différents Examens
-        # Corrects précédemment Obtenus.
-        # Ensuite On récupère les factures dont la référence(service de cotation)
-        # est à l'intérieur de la liste des service de cotations.
-        # Aprs on boucle les factures pour remplir le syntheses_cotation naturellement
+        # 4️⃣ Récupérer tous les services en une seule requête (évite `search` répétitif)
+        service_map = {service.name: service for service in Services.search([('name', 'in', liste_cotations)])}
 
+        # 5️⃣ Préparer une liste pour batch-create
         cotations = []
-        
+
+        # 6️⃣ Boucle optimisée
         for invoice in Services_Invoices:
+            service = service_map.get(invoice.reference)  # Évite un search inutile
+            if not service:
+                continue  # Skip si le service n'est pas trouvé
+
             for exam in Examens:
-                elt_cotation = {}
-                service = Services.search([('name', '=', invoice.reference)])
-                elt_cotation['service_cotation'] = service[0].name
-                elt_cotation['date_service'] = service[0].service_date
-                elt_cotation['patient'] = service[0].patient.name.name + " " + service[0].patient.name.lastname
-                elt_cotation['etat'] = service[0].state
-                elt_cotation['prescripteur'] = service[0].requestor.name.name + " " + service[0].requestor.name.lastname
-                elt_cotation['date_invoice'] = invoice.invoice_date
-                elt_cotation['number_invoice'] = invoice.number
-                elt_cotation['examen'] = exam.actes_examen
-                if Cotations.search([('number_invoice','=', invoice.number), ('examen','=', exam.actes_examen)]) == []:
+                elt_cotation = {
+                    'service_cotation': service.name,
+                    'date_service': service.service_date,
+                    'patient': f"{service.patient.name.name} {service.patient.name.lastname}",
+                    'etat': service.state,
+                    'prescripteur': f"{service.requestor.name.name} {service.requestor.name.lastname}",
+                    'date_invoice': invoice.invoice_date,
+                    'number_invoice': invoice.number,
+                    'examen': exam.actes_examen,
+                }
+
+                # 7️⃣ Vérifier l'existence en lot pour éviter des `search` dans la boucle
+                if not Cotations.search([
+                    ('number_invoice', '=', invoice.number),
+                    ('examen', '=', exam.actes_examen)
+                ]):
                     cotations.append(elt_cotation)
 
-        Cotations.create(cotations)
+        # 8️⃣ Créer les cotations en lot (au lieu de plusieurs appels `create`)
+        if cotations:
+            Cotations.create(cotations)
+
         
         return 'end'
     
