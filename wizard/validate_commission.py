@@ -55,8 +55,9 @@ class ActualiseCommission(Wizard):
             Commissions_Search = Commissions.search([('origin.invoice.reference', '=', Compta.number_invoice, 'account.invoice.line'), 
                                                      ('origin.product.name', '=', re.sub(r"^\[.*?\]\s*", "", Compta.designation), 'account.invoice.line')])
             for commission in Commissions_Search :
-                commission.is_validate = True
-                Commissions.save([commission])
+                if commission.is_validate != True :
+                    commission.is_validate = True
+                    Commissions.save([commission])
 
         return 'end'
 
