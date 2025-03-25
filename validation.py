@@ -21,7 +21,6 @@ class Syntheses_Resultats_Examen(ModelSQL, ModelView):
     correct = fields.Boolean("Correct", help="Cocher si ceci est bien correct.")
 
 
-
 class Syntheses_Pivot(ModelSQL, ModelView):
     'Synthèses des différents Service de Cotation'
     __name__ = 'syntheses_cotation'

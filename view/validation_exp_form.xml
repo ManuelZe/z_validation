@@ -8,6 +8,8 @@ this repository contains the full copyright notices and license terms. -->
     <field name="numero_test"/>
     <label name="actes_examen"/>
     <field name="actes_examen"/>
+    <label name="date_emm"/>
+    <field name="date_emm"/>
     <label name="date_result"/>
     <field name="date_result"/>
     <label name="state"/>

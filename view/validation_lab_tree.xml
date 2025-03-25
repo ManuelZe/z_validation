@@ -5,7 +5,7 @@
     <field name="service_cotation"/>
     <field name="actes_examen"/>
     <field name="date_emm" widget='date'/>
-    <field name="date_eng" widget='date'/>
+    <field name="date_result" widget='date'/>
     <field name="state"/>
     <field name="patient"/>
     <field name="correct"/>
