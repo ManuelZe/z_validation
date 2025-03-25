@@ -67,17 +67,16 @@ class GenerateResultsCotation(Wizard):
         cotations = []
         
         for invoice in Services_Invoices:
-            service = Services.search([('name', '=', invoice.reference)])
-            elt_cotation = {}
-            elt_cotation['service_cotation'] = service[0].name
-            elt_cotation['date_service'] = service[0].service_date
-            elt_cotation['patient'] = service[0].patient.name.name + " " + service[0].patient.name.lastname
-            elt_cotation['etat'] = service[0].state
-            elt_cotation['prescripteur'] = service[0].requestor.name.name + " " + service[0].requestor.name.lastname
-            elt_cotation['date_invoice'] = invoice.invoice_date
-            elt_cotation['number_invoice'] = invoice.number
-
             for exam in Examens:
+                elt_cotation = {}
+                service = Services.search([('name', '=', invoice.reference)])
+                elt_cotation['service_cotation'] = service[0].name
+                elt_cotation['date_service'] = service[0].service_date
+                elt_cotation['patient'] = service[0].patient.name.name + " " + service[0].patient.name.lastname
+                elt_cotation['etat'] = service[0].state
+                elt_cotation['prescripteur'] = service[0].requestor.name.name + " " + service[0].requestor.name.lastname
+                elt_cotation['date_invoice'] = invoice.invoice_date
+                elt_cotation['number_invoice'] = invoice.number
                 elt_cotation['examen'] = exam.actes_examen
                 if Cotations.search([('number_invoice','=', invoice.number), ('examen','=', exam.actes_examen)]) == []:
                     cotations.append(elt_cotation)
