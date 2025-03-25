@@ -57,7 +57,7 @@ class ActualiseCommission(Wizard):
             for commission in Commissions_Search :
                 if commission.is_validate != True :
                     commission.is_validate = True
-                    Commissions_Search.save([commission])
+                    Commissions.save([commission])
 
         return 'end'
 
