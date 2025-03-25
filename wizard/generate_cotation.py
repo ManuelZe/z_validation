@@ -92,7 +92,6 @@ class GenerateResultsCotation(Wizard):
 
                             print("Cotations ---------------------- ", len(cotations))
                             # Cotations.create(cotations)
-                    else:
                         break
         
         return 'end'
