@@ -56,14 +56,14 @@ class GenerateResultsCotation(Wizard):
 
         # 2️⃣ Construire une liste des références de cotation
         liste_cotations = [examen.service_cotation for examen in Examens]
-        print("La liste des cotations ----- ", liste_cotations)
+        print("La liste des cotations ----- ", len(liste_cotations))
 
         # 3️⃣ Récupérer toutes les factures associées en une seule requête
         Services_Invoices = Invoices.search([
             ('reference', 'in', liste_cotations),
             ('state', 'in', ['paid', 'posted'])
         ])
-        print("Le service Invoice -- ", Services_Invoices)
+        print("Le service Invoice -- ", len(Services_Invoices))
 
         # 4️⃣ Récupérer tous les services en une seule requête (évite `search` répétitif)
         service_map = {service.name: service for service in Services.search([('name', 'in', liste_cotations)])}
