@@ -4,6 +4,8 @@
     <field name="numero_test"/>
     <field name="service_cotation"/>
     <field name="actes_examen"/>
+    <field name="date_emm"/>
+    <field name="date_eng"/>
     <field name="state"/>
     <field name="patient"/>
     <field name="correct"/>
