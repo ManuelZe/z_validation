@@ -52,10 +52,11 @@ class ActualiseCommission(Wizard):
         Comptas = Synth_Commissions.search([('correct', '=', True)])
 
         for Compta in Comptas:
-            Commissions_Search, = Commissions.search([('origin.invoice.reference', '=', Compta.service_cotation, 'account.invoice.line'), 
+            Commissions_Search = Commissions.search([('origin.invoice.reference', '=', Compta.number_invoice, 'account.invoice.line'), 
                                                      ('origin.product.name', '=', re.sub(r"^\[.*?\]\s*", "", Compta.designation), 'account.invoice.line')])
-            Commissions_Search.is_validate = True
-            Commissions_Search.save()
+            for commission in Commissions_Search :
+                commission.is_validate = True
+                Commissions_Search.save([commission])
 
         return 'end'
 
