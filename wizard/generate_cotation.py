@@ -91,10 +91,11 @@ class GenerateResultsCotation(Wizard):
                         elt_cotation['examen'] = exam.actes_examen
                         if Cotations.search([('number_invoice','=', invoice.number), ('examen','=', exam.actes_examen)]) == [] :
                             cotations.append(elt_cotation)
-                            t = [item for item, count in cotations.items() if count > 1]
-                            print("Cotations ---------------------- ", t)
-                            # Cotations.create(cotations)
+                            # 
                         break
+        
+        if cotations:
+            Cotations.create(cotations)
 
         return 'end'
     
