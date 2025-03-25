@@ -52,6 +52,7 @@ class ActualiseCommission(Wizard):
         Comptas = Synth_Commissions.search([('correct', '=', True)])
 
         for Compta in Comptas:
+            print('Comptaaaaaaaaaaaaaaaa ', Compta)
             Commissions_Search = Commissions.search([('origin.invoice.reference', '=', Compta.number_invoice, 'account.invoice.line'), 
                                                      ('origin.product.name', '=', re.sub(r"^\[.*?\]\s*", "", Compta.designation), 'account.invoice.line')])
             for commission in Commissions_Search :
