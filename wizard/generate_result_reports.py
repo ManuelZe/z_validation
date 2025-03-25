@@ -105,6 +105,10 @@ class GenerateResultsExamen(Wizard):
 
             if Syntheses.search([('tests_id','=', tests_id)]) == []:
                 Syntheses.create([data])
+            else :
+                synth = Syntheses.search([('tests_id','=', tests_id)])
+                synth[0].state = LabResult.state
+                Syntheses.save([synth])
 
         for ExpResult in ExpResults :
             data = {}
@@ -131,6 +135,10 @@ class GenerateResultsExamen(Wizard):
 
             if Syntheses.search([('tests_id','=', tests_id)]) == []:
                 Syntheses.create([data])
+            else :
+                synth = Syntheses.search([('tests_id','=', tests_id)])
+                synth[0].state = ExpResult.state
+                Syntheses.save([synth])
 
         for ImgResult in ImgResults :
             dur = 0
@@ -154,5 +162,9 @@ class GenerateResultsExamen(Wizard):
             }
             if Syntheses.search([('tests_id','=', tests_id)]) == []:
                 Syntheses.create([data])
+            else :
+                synth = Syntheses.search([('tests_id','=', tests_id)])
+                synth[0].state = ImgResult.state
+                Syntheses.save([synth])
 
         return 'end'
