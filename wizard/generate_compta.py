@@ -25,6 +25,7 @@ import re
 from trytond.model import ModelView
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.pool import Pool
+from datetime import date
 
 
 class GenerateResultsComptabiliteInit(ModelView):
@@ -45,16 +46,32 @@ class GenerateResultsCompta(Wizard):
     generate_compta_examen_validation = StateTransition()
 
     def transition_generate_compta_examen_validation(self):
-        Cotations = Pool().get("syntheses_cotation")
+        Invoices = Pool().get("account.invoice")
         Commissions = Pool().get("commission")
         Synth_Commissions = Pool().get("syntheses_commission")
 
-        Cotations = Cotations.search([('correct', '=', True)])
-        listes_invoices = [cotation.number_invoice for cotation in Cotations]
-        listes_examens = [cotation.examen for cotation in Cotations]
+        Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("invoice_date", ">=", date(2025, 3, 26)), ("invoice_date", "<=", date(2025, 3, 26))])
+        listes_factures = []
+        listes_exam_factures = {}
+        for facture in Factures:
+            if facture.number not in listes_factures :
+                listes_factures.append(facture.number)
+            
+        for facture in Factures:
+            if facture.reference in listes_factures:
+                listes_factures.remove(facture.reference)
+
+        for facture in Factures:
+            listes_examen = []
+            if facture.number in listes_factures:
+                for line in facture.lines:
+                    if line not in listes_exam_factures[facture.number]:
+                        listes_examen.append(line.product.name)
+                listes_exam_factures[facture.number] = listes_examen
+
 
         Commissions = Commissions.search([])
-        Commissions = [commission for commission in Commissions if commission.origin.invoice.number in listes_invoices and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_examens]
+        Commissions = [commission for commission in Commissions if commission.origin.invoice.number in listes_exam_factures.keys() and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_exam_factures[facture.number]]
 
         list_commissions = []
         for commission in Commissions:
@@ -68,10 +85,40 @@ class GenerateResultsCompta(Wizard):
             a = Synth_Commissions.search([('number_invoice','=', commission.origin.invoice.number), ('designation','=', commission.origin.product.rec_name)])
             if a == []:
                 list_commissions.append(dict_commission)
-
-        Synth_Commissions.create(list_commissions)
+            
+            Synth_Commissions.create(list_commissions)
 
         return 'end'
+
+
+    # def transition_generate_compta_examen_validation(self):
+    #     Cotations = Pool().get("syntheses_cotation")
+    #     Commissions = Pool().get("commission")
+    #     Synth_Commissions = Pool().get("syntheses_commission")
+
+    #     Cotations = Cotations.search([('correct', '=', True)])
+    #     listes_invoices = [cotation.number_invoice for cotation in Cotations]
+    #     listes_examens = [cotation.examen for cotation in Cotations]
+
+    #     Commissions = Commissions.search([])
+    #     Commissions = [commission for commission in Commissions if commission.origin.invoice.number in listes_invoices and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_examens]
+
+    #     list_commissions = []
+    #     for commission in Commissions:
+    #         dict_commission = {}
+    #         dict_commission['service_cotation'] = commission.origin.invoice.reference
+    #         dict_commission['number_invoice'] = commission.origin.invoice.number
+    #         dict_commission['amount'] = commission.amount
+    #         dict_commission['designation'] = commission.origin.product.rec_name
+    #         dict_commission['agent'] = commission.agent.rec_name
+
+    #         a = Synth_Commissions.search([('number_invoice','=', commission.origin.invoice.number), ('designation','=', commission.origin.product.rec_name)])
+    #         if a == []:
+    #             list_commissions.append(dict_commission)
+
+    #     Synth_Commissions.create(list_commissions)
+
+    #     return 'end'
 
 
 
