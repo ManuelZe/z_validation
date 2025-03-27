@@ -49,8 +49,9 @@ class GenerateResultsCompta(Wizard):
         Invoices = Pool().get("account.invoice")
         Commissions = Pool().get("commission")
         Synth_Commissions = Pool().get("syntheses_commission")
-
-        Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("invoice_date", ">=", date(2025, 2, 1)), ("invoice_date", "<=", date(2025, 2, 10))])
+        
+        Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("number", "=", "20250228FacCli000796")])
+        # Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("invoice_date", ">=", date(2025, 2, 1)), ("invoice_date", "<=", date(2025, 2, 10))])
         listes_factures = []
         listes_exam_factures = {}
         for facture in Factures:
