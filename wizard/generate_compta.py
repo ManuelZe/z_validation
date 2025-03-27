@@ -65,7 +65,10 @@ class GenerateResultsCompta(Wizard):
             listes_examen = []
             if facture.number in listes_factures:
                 for line in facture.lines:
-                    if line not in listes_exam_factures[facture.number]:
+                    if facture.number in listes_exam_factures.keys():
+                        if line not in listes_exam_factures[facture.number]:
+                            listes_examen.append(line.product.name)
+                    else:
                         listes_examen.append(line.product.name)
                 listes_exam_factures[facture.number] = listes_examen
 
