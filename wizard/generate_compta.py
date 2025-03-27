@@ -74,7 +74,7 @@ class GenerateResultsCompta(Wizard):
 
 
         Commissions = Commissions.search([])
-        Commissions = [commission for commission in Commissions if commission.origin.invoice.number in listes_exam_factures.keys() and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_exam_factures[facture.number]]
+        Commissions = [commission for commission in Commissions if commission.origin.invoice.number in listes_exam_factures.keys() and commission.origin.product.name in listes_exam_factures[facture.number]]
 
         list_commissions = []
         for commission in Commissions:
