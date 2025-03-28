@@ -49,27 +49,28 @@ class GenerateResultsCompta(Wizard):
         Invoices = Pool().get("account.invoice")
         Commissions = Pool().get("commission")
         Synth_Commissions = Pool().get("syntheses_commission")
-
-        Commissions_S = Commissions.search([])
-        for commission in Commissions_S:
-            if commission.is_validate == True:
-                commission.is_validate == False
-                Commissions.save([commission])
         
-        return 'end'
-
         
         # Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("number", "=", "20250228FacCli000796")])
-        # # Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("invoice_date", ">=", date(2025, 2, 1)), ("invoice_date", "<=", date(2025, 2, 10))])
-        # listes_factures = []
-        # listes_exam_factures = {}
-        # for facture in Factures:
-        #     if facture.number not in listes_factures :
-        #         listes_factures.append(facture.number)
+        Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("invoice_date", ">=", date(2025, 2, 21)), ("invoice_date", "<=", date(2025, 3, 20))])
+        listes_factures = []
+        listes_exam_factures = {}
+        for facture in Factures:
+            if facture.number not in listes_factures :
+                listes_factures.append(facture.number)
             
-        # for facture in Factures:
-        #     if facture.reference in listes_factures:
-        #         listes_factures.remove(facture.reference)
+        for facture in Factures:
+            if facture.reference in listes_factures:
+                listes_factures.remove(facture.reference)
+        
+        Commissions_S = Commissions.search([('created_at', '>=', date(2025, 2, 21)), ('created_at', '<=', date(2025, 3, 20))])
+        for commission in Commissions_S:
+            if commission.origin.invoice.number in listes_factures :
+                commission.is_validate = True
+
+                Commissions.save([commission])
+            
+        return 'end'
 
         # for facture in Factures:
         #     if facture.number in listes_factures:
