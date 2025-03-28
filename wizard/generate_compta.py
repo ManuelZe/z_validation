@@ -52,7 +52,7 @@ class GenerateResultsCompta(Wizard):
         
         
         # Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("number", "=", "20250228FacCli000796")])
-        Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("invoice_date", ">=", date(2025, 2, 21)), ("invoice_date", "<=", date(2025, 3, 20))])
+        Factures = Invoices.search([("state", "in", ['posted', 'paid']), ("invoice_date", ">=", date(2025, 2, 26)), ("invoice_date", "<=", date(2025, 3, 26))])
         listes_factures = []
         listes_exam_factures = {}
         for facture in Factures:
@@ -64,7 +64,7 @@ class GenerateResultsCompta(Wizard):
                 listes_factures.remove(facture.reference)
                 listes_factures.remove(facture.number)
         
-        Commissions_S = Commissions.search([('create_date', '>=', datetime.combine(date(2025, 2, 21), time.min)), ('create_date', '<=', datetime.combine(date(2025, 3, 20), time.max))])
+        Commissions_S = Commissions.search([('create_date', '>=', datetime.combine(date(2025, 2, 26), time.min)), ('create_date', '<=', datetime.combine(date(2025, 3, 26), time.max))])
         for commission in Commissions_S:
             if commission.origin.invoice.number in listes_factures :
                 commission.is_validate = True
