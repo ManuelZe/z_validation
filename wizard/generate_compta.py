@@ -62,6 +62,7 @@ class GenerateResultsCompta(Wizard):
         for facture in Factures:
             if facture.reference in listes_factures:
                 listes_factures.remove(facture.reference)
+                listes_factures.remove(facture.number)
         
         Commissions_S = Commissions.search([('create_date', '>=', datetime.combine(date(2025, 2, 21), time.min)), ('create_date', '<=', datetime.combine(date(2025, 3, 20), time.max))])
         for commission in Commissions_S:
