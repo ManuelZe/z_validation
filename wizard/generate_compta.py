@@ -63,7 +63,7 @@ class GenerateResultsCompta(Wizard):
             if facture.reference in listes_factures:
                 listes_factures.remove(facture.reference)
         
-        Commissions_S = Commissions.search([('created_at', '>=', date(2025, 2, 21)), ('created_at', '<=', date(2025, 3, 20))])
+        Commissions_S = Commissions.search([('create_date', '>=', date(2025, 2, 21)), ('create_date', '<=', date(2025, 3, 20))])
         for commission in Commissions_S:
             if commission.origin.invoice.number in listes_factures :
                 commission.is_validate = True
