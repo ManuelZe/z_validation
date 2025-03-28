@@ -25,7 +25,7 @@ import re
 from trytond.model import ModelView
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.pool import Pool
-from datetime import date
+from datetime import date, datetime, time
 
 
 class GenerateResultsComptabiliteInit(ModelView):
@@ -63,7 +63,7 @@ class GenerateResultsCompta(Wizard):
             if facture.reference in listes_factures:
                 listes_factures.remove(facture.reference)
         
-        Commissions_S = Commissions.search([('create_date', '>=', date(2025, 2, 21)), ('create_date', '<=', date(2025, 3, 20))])
+        Commissions_S = Commissions.search([('create_date', '>=', datetime.combine(date(2025, 2, 21), time.min)), ('create_date', '<=', datetime.combine(date(2025, 3, 20)), time.max)])
         for commission in Commissions_S:
             if commission.origin.invoice.number in listes_factures :
                 commission.is_validate = True
