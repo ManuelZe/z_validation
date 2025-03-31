@@ -7,4 +7,10 @@
     <newline/>
     <separator string="Actualize commission" colspan="6"
         id="actualize_commission_eleven"/>
+
+    <label name="date_debut"/>
+    <field name="date_debut"/>
+    <label name="date_fin"/>
+    <field name="date_fin"/>
+    
 </form>
