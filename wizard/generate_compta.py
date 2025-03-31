@@ -22,7 +22,7 @@
 #
 ##############################################################################
 import re
-from trytond.model import ModelView
+from trytond.model import ModelView, fields
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.pool import Pool
 from datetime import date, datetime, time
@@ -31,6 +31,9 @@ from datetime import date, datetime, time
 class GenerateResultsComptabiliteInit(ModelView):
     'Generate Data Compta - Validation'
     __name__ = 'results.compta.init'
+
+    date_debut = fields.Date("Date de Début")
+    date_fin = fields.Date("Date de Fin")
 
 class GenerateResultsCompta(Wizard):
     'Generate Data Comptabilite Validation syntheses_commission'
@@ -43,22 +46,54 @@ class GenerateResultsCompta(Wizard):
                 True),
             ])
     
+    def default_start(self, fields):
+        today = date.today()
+        default = {
+            'date_debut': datetime.combine(today, time.min),
+            'date_fin': datetime.combine(today, time.max),
+            }
+        return default
+    
     generate_compta_examen_validation = StateTransition()
 
     def transition_generate_compta_examen_validation(self):
         Cotations = Pool().get("syntheses_cotation")
         Commissions = Pool().get("commission")
         Synth_Commissions = Pool().get("syntheses_commission")
+        start_datetime = datetime.combine(self.start.date_debut, time.min)
+        end_datetime = datetime.combine(self.start.date_fin, time.max)
+
+        Invoices = Pool().get("account.invoice")
+        Factures = Invoices.search([('invoice_date', '<=', start_datetime), ('invoice_date', '=>', end_datetime)])
+
+        listes_factures = []
+        for Facture in Factures:
+            if Facture.number not in listes_factures:
+                listes_factures.append(Facture.number)
+
+        for Facture in Factures:
+            if Facture.reference in listes_factures:
+                listes_factures.remove(Facture.reference)
+                listes_factures.remove(Facture.number)
 
         Cotations = Cotations.search([('correct', '=', True)])
         listes_invoices = [cotation.number_invoice for cotation in Cotations]
         listes_examens = [cotation.examen for cotation in Cotations]
-
+        
+        for facture in listes_factures:
+            if facture.number not in listes_invoices:
+                listes_invoices.append[facture.number]
+        
+        
         Commissions = Commissions.search([])
-        Commissions = [commission for commission in Commissions if commission.origin.invoice.number in listes_invoices and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_examens]
+        Commissions_2 = [commission for commission in Commissions if commission.origin.invoice.number in listes_invoices and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_examens]
+        
+        for commission in Commissions:
+            if commission not in Commissions_2 and commission.origin.invoice.number in listes_invoices:
+                Commissions_2.append(commission)
 
         list_commissions = []
-        for commission in Commissions:
+        for commission in Commissions_2:
             dict_commission = {}
             dict_commission['service_cotation'] = commission.origin.invoice.reference
             dict_commission['number_invoice'] = commission.origin.invoice.number
