@@ -8,4 +8,8 @@
     <separator string="Generate Validation Comptabilité" colspan="6"
         id="generate_result_compta_ask_create"/>
 
+    <label name="date_debut"/>
+    <field name="date_debut"/>
+    <label name="date_fin"/>
+    <field name="date_fin"/>
 </form>
