@@ -82,7 +82,7 @@ class GenerateResultsCompta(Wizard):
         
         for facture in listes_factures:
             if facture not in listes_invoices:
-                listes_invoices.append[facture]
+                listes_invoices.append(facture)
         
         
         Commissions = Commissions.search([])
