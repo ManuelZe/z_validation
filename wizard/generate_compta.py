@@ -64,9 +64,9 @@ class GenerateResultsCompta(Wizard):
         # end_datetime = datetime.combine(self.start.date_fin, time.max)
 
         Invoices = Pool().get("account.invoice")
-        F = Invoices.search([('state', 'in', ['paid', 'posted'])], limit=3)
-        print(F[0].invoice_date, "-------------------", self.start.date_fin <= F[0].invoice_date)
-        Factures = Invoices.search([('invoice_date', '>=', self.start.date_debut), ('invoice_date', '<=', self.start.date_fin)])
+        Factures = Invoices.search([('invoice_date', '>=', self.start.date_debut), ('invoice_date', '<=', self.start.date_fin), ('state', 'in', ['paid', 'posted'])])
+
+        print(f"--------------------- , len(listes_factures)")
 
         listes_factures = []
         for Facture in Factures:
