@@ -66,8 +66,6 @@ class GenerateResultsCompta(Wizard):
         Invoices = Pool().get("account.invoice")
         Factures = Invoices.search([('invoice_date', '>=', self.start.date_debut), ('invoice_date', '<=', self.start.date_fin), ('state', 'in', ['paid', 'posted'])])
 
-        print(f"11111111111111111111111 , len(listes_factures)")
-
         listes_factures = []
         for Facture in Factures:
             if Facture.number not in listes_factures:
@@ -77,16 +75,14 @@ class GenerateResultsCompta(Wizard):
             if Facture.reference in listes_factures:
                 listes_factures.remove(Facture.reference)
                 listes_factures.remove(Facture.number)
-        print(f"-222222222222222222222, len(listes_factures)")
-
+        
         Cotations = Cotations.search([('correct', '=', True)])
         listes_invoices = [cotation.number_invoice for cotation in Cotations]
         listes_examens = [cotation.examen for cotation in Cotations]
         
-        print(f"-333333333333333333333, len(listes_factures)")
         for facture in listes_factures:
-            if facture.number not in listes_invoices:
-                listes_invoices.append[facture.number]
+            if facture not in listes_invoices:
+                listes_invoices.append[facture]
         
         
         Commissions = Commissions.search([])
