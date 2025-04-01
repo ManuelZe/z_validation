@@ -60,11 +60,11 @@ class GenerateResultsCompta(Wizard):
         Cotations = Pool().get("syntheses_cotation")
         Commissions = Pool().get("commission")
         Synth_Commissions = Pool().get("syntheses_commission")
-        start_datetime = datetime.combine(self.start.date_debut, time.min)
-        end_datetime = datetime.combine(self.start.date_fin, time.max)
+        # start_datetime = datetime.combine(self.start.date_debut, time.min)
+        # end_datetime = datetime.combine(self.start.date_fin, time.max)
 
         Invoices = Pool().get("account.invoice")
-        Factures = Invoices.search([('invoice_date', '<=', start_datetime), ('invoice_date', '>=', end_datetime)])
+        Factures = Invoices.search([('invoice_date', '<=', self.start.date_debut), ('invoice_date', '>=', self.start.date_fin)])
 
         listes_factures = []
         for Facture in Factures:
