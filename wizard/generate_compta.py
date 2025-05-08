@@ -74,23 +74,10 @@ class GenerateResultsCompta(Wizard):
         for Facture in Factures:
             if Facture.reference in listes_factures:
                 listes_factures.remove(Facture.reference)
-                listes_factures.remove(Facture.number)
-        
-        Cotations = Cotations.search([('correct', '=', True)])
-        listes_invoices = [cotation.number_invoice for cotation in Cotations]
-        listes_examens = [cotation.examen for cotation in Cotations]
-        
-        for facture in listes_factures:
-            if facture not in listes_invoices:
-                listes_invoices.append(facture)
-        
+                listes_factures.remove(Facture.number)        
         
         Commissions = Commissions.search([])
-        Commissions_2 = [commission for commission in Commissions if commission.origin.invoice.number in listes_invoices and re.sub(r"^\[.*?\]\s*", "", commission.origin.product.rec_name) in listes_examens]
-        
-        for commission in Commissions:
-            if commission not in Commissions_2 and commission.origin.invoice.number in listes_invoices:
-                Commissions_2.append(commission)
+        Commissions_2 = [commission for commission in Commissions if commission.origin.invoice.number in listes_factures]
 
         list_commissions = []
         for commission in Commissions_2:
