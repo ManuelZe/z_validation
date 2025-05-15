@@ -65,7 +65,7 @@ class GenerateResultsCotation(Wizard):
         end = datetime.combine(target_date, time.max)
         Examens = Examens.search([('correct', '=', True),
                                   ('create_date', '>=', start),
-                                  ('create_date', '<=', end)])
+                                  ('create_date', '<=', end),])
         liste_cotations = [examen.service_cotation for examen in Examens]
         print("La liste des cotations ----- ", len(liste_cotations))
         Services_Invoices = Invoices.search([('reference', 'in', liste_cotations), ('state', 'in', ['paid', 'posted'])])
