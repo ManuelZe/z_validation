@@ -58,7 +58,14 @@ class GenerateResultsCotation(Wizard):
         Services = Pool().get("gnuhealth.health_service")
         Invoices = Pool().get("account.invoice")
 
-        Examens = Examens.search([('correct', '=', True)])
+        last_Exams = Examens.search([('create_date', 'DESC')], limit=1)
+        last_date = last_Exams[0].create_date
+        target_date = last_date.date()
+        start = datetime.combine(target_date, time.min)
+        end = datetime.combine(target_date, time.max)
+        Examens = Examens.search([('correct', '=', True),
+                                  ('create_date', '>=', start),
+                                  ('create_date', '<=', end)])
         liste_cotations = [examen.service_cotation for examen in Examens]
         print("La liste des cotations ----- ", len(liste_cotations))
         Services_Invoices = Invoices.search([('reference', 'in', liste_cotations), ('state', 'in', ['paid', 'posted'])])
