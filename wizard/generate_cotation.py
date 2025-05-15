@@ -58,7 +58,7 @@ class GenerateResultsCotation(Wizard):
         Services = Pool().get("gnuhealth.health_service")
         Invoices = Pool().get("account.invoice")
 
-        last_Exams = Examens.search(order=[('create_date', 'DESC')], limit=1)
+        last_Exams = Examens.search([], order=[('create_date', 'DESC')], limit=1)
         last_date = last_Exams[0].create_date
         target_date = last_date.date()
         start = datetime.combine(target_date, time.min)
