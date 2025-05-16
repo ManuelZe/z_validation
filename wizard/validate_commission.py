@@ -64,7 +64,7 @@ class ActualiseCommission(Wizard):
         for Compta in Comptas:
             Commissions_Search = Commissions.search([('origin.invoice.number', '=', Compta.number_invoice, 'account.invoice.line'), 
                                                      ('origin.product.name', '=', re.sub(r"^\[.*?\]\s*", "", Compta.designation), 'account.invoice.line'),
-                                                     ('create_date', '>=', self.start.date_debut), ('create_date', '<=', self.start.date_fin)])
+                                                     ('create_date', '>=', datetime.combine(self.start.date_debut, time.min)), ('create_date', '<=', datetime.combine(self.start.date_fin, time.max))])
             for commission in Commissions_Search :
                 if commission.is_validate != True :
                     commission.is_validate = True
