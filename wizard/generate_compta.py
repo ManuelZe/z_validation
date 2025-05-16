@@ -45,7 +45,7 @@ class GenerateResultsCompta(Wizard):
             Button('Generate Validation', 'generate_compta_examen_validation', 'tryton-ok',
                 True),
             ])
-    
+     
     def default_start(self, fields):
         today = date.today()
         default = {

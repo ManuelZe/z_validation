@@ -32,6 +32,8 @@ class ActualiseCommissionInit(ModelSQL,ModelView):
     'Actualize Commission - Init'
     __name__ = 'actualize.commission.init'
 
+    date_debut = fields.Date("Date de Début")
+    date_fin = fields.Date("Date de Fin")
 
 class ActualiseCommission(Wizard):
     'Actualize Commission'
@@ -45,6 +47,14 @@ class ActualiseCommission(Wizard):
             ])
     actualize_commission = StateTransition()
 
+    def default_start(self, fields):
+        today = date.today()
+        default = {
+            'date_debut': datetime.combine(today, time.min),
+            'date_fin': datetime.combine(today, time.max),
+            }
+        return default
+
     def transition_actualize_commission(self):
         Commissions = Pool().get("commission")
         Synth_Commissions = Pool().get("syntheses_commission")
@@ -53,7 +63,8 @@ class ActualiseCommission(Wizard):
 
         for Compta in Comptas:
             Commissions_Search = Commissions.search([('origin.invoice.number', '=', Compta.number_invoice, 'account.invoice.line'), 
-                                                     ('origin.product.name', '=', re.sub(r"^\[.*?\]\s*", "", Compta.designation), 'account.invoice.line')])
+                                                     ('origin.product.name', '=', re.sub(r"^\[.*?\]\s*", "", Compta.designation), 'account.invoice.line'),
+                                                     ('create_date', '>=', self.start.date_debut), ('create_date', '<=', self.start.date_fin)])
             for commission in Commissions_Search :
                 if commission.is_validate != True :
                     commission.is_validate = True
