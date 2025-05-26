@@ -78,7 +78,7 @@ class GenerateResultsCotation(Wizard):
                                   ('create_date', '<=', end),])
         liste_cotations = [examen.service_cotation for examen in Examens]
         print("La liste des cotations ----- ", len(liste_cotations))
-        Services_Invoices = Invoices.search([('create_date', '>=', start), ('create_date', '<=', end), ('reference', 'in', liste_cotations), ('state', 'in', ['paid', 'posted'])])
+        Services_Invoices = Invoices.search([('reference', 'in', liste_cotations), ('state', 'in', ['paid', 'posted'])])
         print("Le service Invoice -- ", len(Services_Invoices))
 
         # Voici le parcours utilisé pour avoir ses données
