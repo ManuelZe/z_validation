@@ -22,7 +22,7 @@
 #
 ##############################################################################
 from datetime import date, timedelta, datetime, time
-from trytond.model import ModelView
+from trytond.model import ModelView, fields
 from trytond.wizard import Wizard, StateTransition, StateView, Button
 from trytond.transaction import Transaction
 from trytond.pool import Pool
@@ -32,6 +32,8 @@ class GenerateResultsCotationInit(ModelView):
     'Generate Data Cotation - Validation'
     __name__ = 'results.cotation.init'
 
+    date_debut = fields.Date("Date de Début")
+    date_fin = fields.Date("Date de Fin")
 
 class GenerateResultsCotation(Wizard):
     'Generate Data Cotation Validation syntheses_cotation'
@@ -44,6 +46,14 @@ class GenerateResultsCotation(Wizard):
                 True),
             ])
     generate_cotation_examen_validation = StateTransition()
+
+    def default_start(self, fields):
+        today = date.today()
+        default = {
+            'date_debut': datetime.combine(today, time.min),
+            'date_fin': datetime.combine(today, time.max),
+            }
+        return default
 
     def transition_generate_cotation_examen_validation(self):
         Examens = Pool().get("all_syntheses")
@@ -61,8 +71,8 @@ class GenerateResultsCotation(Wizard):
         last_Exams = Examens.search([], order=[('create_date', 'DESC')], limit=1)
         last_date = last_Exams[0].create_date
         target_date = last_date.date()
-        start = datetime.combine(target_date, time.min)
-        end = datetime.combine(target_date, time.max)
+        start = datetime.combine(self.start.date_debut, time.min)
+        end = datetime.combine(self.start.date_fin, time.max)
         Examens = Examens.search([('correct', '=', True),
                                   ('create_date', '>=', start),
                                   ('create_date', '<=', end),])
